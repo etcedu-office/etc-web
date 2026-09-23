@@ -1,6 +1,6 @@
 /* =====================================================
    ตั้งค่าการเชื่อมต่อระบบ
-   ▼▼ แก้บรรทัดนี้เป็น URL ของ Web App จากขั้นตอนที่ 5 ของคู่มือ
+   ▼▼ แก้บรรทัดนี้เป็น URL ของ Web App จากขั้นตอนการ Deploy
    ตัวอย่าง: 'https://script.google.com/macros/s/AKfy.../exec'
    หากยังไม่ใส่ ระบบจะทำงานใน "โหมดตัวอย่าง" (Mock data)
    ===================================================== */
@@ -30,7 +30,7 @@ async function apiCall(action, data = {}, token = null) {
 
 /* =====================================================
    โหมดตัวอย่าง (Mock) — ใช้เฉพาะเมื่อยังไม่ได้ใส่ API_URL
-   ลองระบบได้ครบ: admin@msu.ac.th / etc1234 (รหัสเดียวกันทุกบัญชี)
+   ลองระบบได้ครบ: admin@msu.ac.th / etc1234
    ===================================================== */
 const MOCK = {
   settings: {
@@ -61,7 +61,7 @@ const MOCK = {
   ],
 };
 
-let M = JSON.parse(JSON.stringify(MOCK)); // สถานะจำลอง (รีเฟรชแล้วรีเซ็ต)
+let M = JSON.parse(JSON.stringify(MOCK));
 
 function mockApi(action, data, token) {
   return new Promise((resolve, reject) => {
@@ -79,7 +79,7 @@ function mockRoute(action, d, token) {
   if (action === 'login') {
     const u = M.users.find(u => u.email === String(d.email || '').trim().toLowerCase());
     if (!u || d.password !== 'etc1234')
-      throw new Error('อีเมลหรือรหัสผ่านไม่ถูกต้อง (โหมดตัวอย่าง: รหัส 1234? — ใช้ etc1234)');
+      throw new Error('อีเมลหรือรหัสผ่านไม่ถูกต้อง (โหมดตัวอย่าง ใช้รหัส etc1234)');
     if (u.status !== 'ACTIVE') throw new Error('บัญชีนี้ถูกระงับการใช้งาน');
     return { ok: true, token: 'MOCK', user: u };
   }
