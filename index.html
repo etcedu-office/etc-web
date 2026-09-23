@@ -3,76 +3,1356 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>เข้าสู่ระบบผู้ดูแล · สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา</title>
+<title>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา · คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</title>
+<meta name="description" content="ประตูสารสนเทศอย่างเป็นทางการ สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%238E2130'/%3E%3Ctext x='32' y='40' font-family='Arial' font-size='17' font-weight='bold' fill='%23F5F0E4' text-anchor='middle'%3ETEC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body class="admin">
+<style>
+/* =====================================================
+   ETC Web Manager — สไตล์ทั้งระบบ (ฝังในไฟล์เดียว)
+   โทน: กระดาษครีม + หมึกเข้ม + แดงเลือดหมู (สี ม.มหาสารคาม)
+   ===================================================== */
+:root{
+  --ink:#221b15; --paper:#f5f0e4; --card:#fffdf7;
+  --crimson:#8e2130; --crimson-2:#6d1824;
+  --muted:#7d7367; --line-c:#d9d0bd; --gridc:rgba(34,27,21,.05);
+  --ok:#2f6b3a; --bad:#a02b1f;
+  --shadow:6px 6px 0 var(--ink);
+  --font:'Anuphan','Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--paper);line-height:1.6}
+img{max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4{line-height:1.2;margin:0}
+.wrap{width:min(1180px,calc(100% - 44px));margin:0 auto}
 
-<!-- หน้าล็อกอิน -->
-<div class="auth" id="authView">
-  <div class="auth__panel">
-    <div class="brand">
-      <span class="brand__mark">ETC</span>
-      <div>
-        <strong>ระบบจัดการเว็บไซต์</strong>
-        <span>สาขาวิชาฯ คณะศึกษาศาสตร์ ม.มหาสารคาม</span>
+/* องค์ประกอบค่อย ๆ โผล่ */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+
+/* เส้นความคืบหน้าการอ่าน */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--crimson);z-index:170}
+
+/* ---------- แถบนำทางองค์กร ---------- */
+.nav{position:sticky;top:0;z-index:60;background:rgba(245,240,228,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1.5px solid var(--ink)}
+.nav.scrolled{box-shadow:0 5px 0 rgba(34,27,21,.09)}
+.nav__in{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:9px 0}
+.nav__brand{display:flex;gap:11px;align-items:center;text-decoration:none;min-width:0}
+.nav__mark{display:grid;place-items:center;width:42px;height:42px;background:var(--crimson);color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.04em;flex:0 0 auto}
+.nav__name{min-width:0}
+.nav__name strong{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav__name small{display:block;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav__menu{display:flex;align-items:center;gap:2px}
+.nav__menu a{padding:8px 12px;font-size:14px;font-weight:500;text-decoration:none;display:inline-flex;gap:6px;align-items:center;border-bottom:2px solid transparent}
+.nav__menu a svg{width:13px;height:13px}
+.nav__menu a:hover{border-bottom-color:var(--ink)}
+.nav__out{color:var(--muted)}
+.nav__out:hover{color:var(--ink)}
+.nav__admin{background:var(--crimson);color:#fff!important;border:1.5px solid var(--crimson);margin-left:6px}
+.nav__admin:hover{background:var(--crimson-2);border-bottom-color:var(--crimson-2)}
+.nav__burger{display:none;place-items:center;width:42px;height:42px;border:1.5px solid var(--ink);background:var(--card);cursor:pointer;padding:0}
+.nav__burger svg{width:19px;height:19px}
+
+/* ---------- หัวเว็บ (Hero) ---------- */
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--crimson);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 14px}
+.eyebrow::before{content:'';width:36px;height:2px;background:var(--crimson)}
+.hero{background:var(--paper);background-image:linear-gradient(var(--gridc) 1px,transparent 1px),linear-gradient(90deg,var(--gridc) 1px,transparent 1px);background-size:46px 46px;border-bottom:3px solid var(--ink)}
+.hero__in{display:flex;justify-content:space-between;align-items:center;gap:40px;padding:66px 0 58px}
+.hero__text{max-width:640px}
+.hero__title{font-size:clamp(42px,7.4vw,80px);font-weight:700;letter-spacing:-.028em;line-height:1.03}
+.hero__title em{font-style:normal;color:var(--crimson)}
+.hero__sub{margin:18px 0 16px;font-size:clamp(11px,1.6vw,14px);font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.hero__tag{margin:0;font-size:17px;max-width:540px}
+.hero__cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.hero__panel{position:relative;flex:0 0 auto;background:var(--card);border:1.5px solid var(--ink);box-shadow:var(--shadow);padding:26px 30px 20px;text-align:center;margin:8px}
+.tick{position:absolute;width:13px;height:13px}
+.tick--tl{top:-7px;left:-7px;border-top:2.5px solid var(--crimson);border-left:2.5px solid var(--crimson)}
+.tick--tr{top:-7px;right:-7px;border-top:2.5px solid var(--crimson);border-right:2.5px solid var(--crimson)}
+.tick--bl{bottom:-7px;left:-7px;border-bottom:2.5px solid var(--crimson);border-left:2.5px solid var(--crimson)}
+.tick--br{bottom:-7px;right:-7px;border-bottom:2.5px solid var(--crimson);border-right:2.5px solid var(--crimson)}
+.hero__panel-cap{margin:12px 0 0;font-size:11.5px;color:var(--muted);letter-spacing:.08em;line-height:1.55}
+.seal{width:196px;height:196px;color:var(--crimson);display:block;margin:0 auto}
+.seal__spin{transform-box:view-box;transform-origin:50% 50%;animation:spin 36s linear infinite}
+.seal__outer{fill:none;stroke:currentColor;stroke-width:2.5}
+.seal__inner{fill:none;stroke:currentColor;stroke-width:1.5}
+.seal__text{font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:2.6px;fill:currentColor}
+.seal__mono{font-family:var(--font);font-size:30px;font-weight:700;fill:var(--ink)}
+.seal__yr{font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:2px;fill:var(--muted)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- แถบข้อมูลองค์กร ---------- */
+.orgstrip{background:var(--ink);color:var(--paper);border-bottom:1.5px solid var(--ink)}
+.orgstrip__in{display:grid;grid-template-columns:repeat(4,1fr)}
+.org{padding:15px 22px;border-left:1px solid rgba(245,240,228,.22)}
+.org:first-child{border-left:0}
+.org small{display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#b6ad9e;margin-bottom:1px}
+.org strong{font-size:17.5px;font-weight:600}
+
+/* ---------- ประกาศเลื่อน ---------- */
+.ticker{display:flex;align-items:stretch;background:var(--crimson);color:#fff;overflow:hidden}
+.ticker__label{display:flex;gap:8px;align-items:center;background:var(--ink);padding:9px 18px;font-weight:600;font-size:13.5px;white-space:nowrap}
+.ticker__label svg{width:15px;height:15px}
+.ticker__viewport{overflow:hidden;flex:1;display:flex;align-items:center}
+.ticker__inner{display:flex;width:max-content;animation:tick 30s linear infinite}
+.ticker__inner span{white-space:nowrap;font-size:14.5px;padding:9px 0}
+.ticker__inner span::after{content:'•';margin:0 44px;color:var(--ink)}
+.ticker:hover .ticker__inner{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- หัวข้อตอน ---------- */
+.section{padding:54px 0 10px}
+.sec-head{display:flex;align-items:flex-end;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:26px;flex-wrap:wrap}
+.sec-no{font-weight:700;color:var(--crimson);font-size:14px;border:1.5px solid var(--crimson);padding:1px 10px;line-height:1.7}
+.sec-head__text h2{font-size:clamp(22px,3.4vw,34px);font-weight:700;letter-spacing:-.02em}
+.sec-head__text p{margin:2px 0 0;color:var(--muted);font-size:14.5px}
+.sec-head__rule{flex:1;border-bottom:1px dotted var(--line-c);margin-bottom:6px}
+
+/* ---------- กริดการ์ด Infographic ---------- */
+.cards{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;grid-auto-flow:dense}
+.card{grid-column:span 4;position:relative;display:flex;flex-direction:column;background:var(--card);border:1.5px solid var(--ink);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);transition:transform .18s ease,box-shadow .18s ease,opacity .7s ease}
+.card--wide{grid-column:span 8}
+.card--tall{grid-column:span 4}
+.card:hover{transform:translate(-4px,-4px);box-shadow:10px 10px 0 var(--crimson)}
+.card__img{margin:0;overflow:hidden}
+.card__img img{width:100%;display:block;object-fit:cover;aspect-ratio:4/3;transition:transform .4s ease;background:#e9e2d2}
+.card--tall .card__img img{aspect-ratio:3/4}
+.card--wide .card__img img{aspect-ratio:16/9}
+.card:hover .card__img img{transform:scale(1.045)}
+.card__peek{position:absolute;top:12px;left:12px;background:var(--paper);border:1.5px solid var(--ink);font-size:11.5px;font-weight:700;padding:2px 10px;letter-spacing:.05em;opacity:0;transform:translateY(-6px);transition:.22s ease;z-index:2}
+.card:hover .card__peek{opacity:1;transform:none}
+.card__bar{display:flex;align-items:center;gap:12px;padding:11px 14px;border-top:1.5px solid var(--ink);background:var(--ink);color:var(--paper)}
+.card__no{font-weight:700;font-size:12.5px;background:var(--crimson);padding:1px 8px;letter-spacing:.06em}
+.card__meta{flex:1;min-width:0}
+.card__meta h3{font-size:16.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card__meta p{margin:0;font-size:12.5px;opacity:.72;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card__go{display:grid;place-items:center;width:30px;height:30px;border:1px solid rgba(245,240,228,.4);border-radius:50%;flex:0 0 auto;transition:.18s}
+.card__go svg{width:14px;height:14px}
+.card:hover .card__go{background:var(--crimson);border-color:var(--crimson)}
+.sk{grid-column:span 4;aspect-ratio:4/4.6;border:1.5px solid transparent;background:#e9e2d2;animation:pulse 1.1s ease-in-out infinite alternate}
+@keyframes pulse{to{opacity:.45}}
+.empty{grid-column:1/-1;border:2px dashed #b9ae97;padding:38px;text-align:center;color:var(--muted)}
+.empty h3{margin-bottom:6px;color:var(--ink)}
+.empty a{color:var(--crimson)}
+
+/* ---------- รู้จักสาขา + พันธกิจ ---------- */
+.about{display:grid;grid-template-columns:1fr 1.7fr;gap:44px;padding:56px 0 26px;border-top:1px solid var(--line-c);margin-top:52px}
+.about__left h2{font-size:clamp(21px,3vw,30px);margin-top:12px;letter-spacing:-.02em}
+.about__text p{margin:0 0 12px;max-width:660px;font-size:16px}
+.missions{list-style:none;margin:26px 0 0;padding:0}
+.missions li{display:flex;gap:16px;padding:16px 0 15px;border-top:1px solid var(--line-c)}
+.missions li span{font-weight:700;color:var(--crimson);font-size:13px;border:1.5px solid var(--crimson);padding:1px 9px;height:fit-content;flex:0 0 auto}
+.missions strong{font-size:16.5px}
+.missions p{margin:2px 0 0;color:var(--muted);font-size:14px}
+
+/* ---------- ปุ่ม ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:14.5px;font-weight:600;padding:10px 18px;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;transition:.15s;line-height:1.35}
+.btn svg{width:15px;height:15px}
+.btn:hover{box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}
+.btn--primary{background:var(--crimson);border-color:var(--crimson);color:#fff}
+.btn--primary:hover{background:var(--crimson-2)}
+.btn--danger{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn--ghost{border-color:transparent;background:transparent}
+.btn--ghost:hover{border-color:var(--ink);box-shadow:none;transform:none}
+.btn--sm{padding:5px 11px;font-size:12.5px}
+.btn--icon{padding:6px 8px}
+.btn--block{width:100%;justify-content:center}
+
+/* ---------- ท้ายเว็บ ---------- */
+.footer{margin-top:60px;background:var(--ink);color:var(--paper);border-top:4px solid var(--crimson)}
+.footer__in{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px;padding:40px 0 26px}
+.footer__col{display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.footer__col h4{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#b6ad9e;margin-bottom:6px}
+.footer__col p{margin:0}
+.footer__col a{text-decoration:none;color:var(--paper)}
+.footer__col a:hover{text-decoration:underline;color:#fff}
+.footer__muted{color:#b6ad9e!important;font-size:13px}
+.footer__addr{color:#b6ad9e;font-size:13.5px;margin-top:8px;max-width:300px}
+.brand--foot{align-items:flex-start;margin-bottom:4px}
+.brand--foot .brand__mark{background:var(--crimson)}
+.brand--foot strong{display:block;font-size:16px}
+.brand--foot span{font-size:12.5px;color:#b6ad9e}
+.footer__base{border-top:1px solid rgba(245,240,228,.18);padding:13px 0;font-size:12.5px;color:#b6ad9e}
+
+/* ---------- ปุ่มขึ้นด้านบน / แถบโหมดตัวอย่าง ---------- */
+.totop{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:4px 4px 0 var(--ink);z-index:80;padding:0;transition:.18s}
+.totop svg{width:18px;height:18px}
+.totop:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--crimson)}
+.mockbar{position:fixed;left:0;right:0;bottom:0;background:var(--crimson);color:#fff;text-align:center;font-size:12.5px;padding:6px 12px;z-index:95}
+
+/* =====================================================
+   โหมดผู้ดูแล (แสดงแบบเต็มจอเมื่อ URL = #admin)
+   ===================================================== */
+#adminRoot{position:fixed;inset:0;z-index:150;background:var(--paper);overflow:auto}
+body.admin-open{overflow:hidden}
+
+.auth{min-height:100vh;display:grid;place-items:center;padding:20px}
+.auth__panel{width:min(430px,100%);background:var(--card);border:1.5px solid var(--ink);box-shadow:var(--shadow);padding:32px 30px}
+.auth__panel h1{font-size:24px;margin:22px 0 4px}
+.auth__lead{margin:0 0 20px;color:var(--muted);font-size:14px}
+.auth__demo{margin:16px 0 0;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line-c);padding-top:12px}
+.auth__demo code{background:#eee7d6;padding:1px 6px}
+.auth__back{display:inline-block;margin-top:16px;font-size:13.5px;color:var(--muted);text-decoration:none}
+.auth__back:hover{color:var(--ink)}
+
+.brand{display:flex;gap:11px;align-items:center}
+.brand__mark{display:grid;place-items:center;width:40px;height:40px;background:var(--crimson);color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.04em;flex:0 0 auto}
+.brand strong{display:block;font-size:15.5px;line-height:1.25}
+.brand span{font-size:12px;color:var(--muted)}
+
+.shell{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+.side{border-right:1.5px solid var(--ink);background:var(--card);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.side__brand{padding:18px 16px;border-bottom:1.5px solid var(--ink)}
+.side__nav{padding:10px 0;display:flex;flex-direction:column}
+.side__nav a{display:flex;align-items:center;gap:11px;padding:11px 16px;font-weight:500;font-size:14.5px;text-decoration:none;border-left:3px solid transparent;color:var(--ink)}
+.side__nav a svg{width:17px;height:17px;color:var(--muted)}
+.side__nav a:hover{background:#f0e9d9}
+.side__nav a.on{border-left-color:var(--crimson);background:#f0e9d9;font-weight:600}
+.side__nav a.on svg{color:var(--crimson)}
+.side__user{margin-top:auto;padding:14px 16px;border-top:1.5px solid var(--ink);display:flex;flex-direction:column;gap:2px}
+.side__user strong{font-size:14px}
+.side__user span{font-size:12px;color:var(--crimson);font-weight:600}
+.side__user .btn{margin-top:8px;justify-content:center}
+.main{min-width:0}
+.topbar2{display:flex;justify-content:space-between;align-items:center;padding:15px 26px;border-bottom:1.5px solid var(--ink);background:var(--card)}
+.topbar2 h2{font-size:19px}
+.view{padding:26px}
+
+.loading{display:flex;gap:9px;align-items:center;color:var(--muted);padding:26px 4px}
+.loading svg{width:16px;height:16px;animation:spin 1.2s linear infinite}
+.hint{color:var(--muted);font-size:13.5px;margin:0 0 16px}
+
+.statrow{display:flex;border:1.5px solid var(--ink);background:var(--card);box-shadow:var(--shadow)}
+.stat{flex:1;padding:20px 24px;border-right:1.5px solid var(--ink)}
+.stat:last-child{border-right:0}
+.stat__n{display:block;font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--crimson);line-height:1.15}
+.stat__l{color:var(--muted);font-size:13px}
+
+.panel{background:var(--card);border:1.5px solid var(--ink);padding:20px 22px;margin-top:22px}
+.panel h3{font-size:16px;margin-bottom:10px}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{text-align:left;border-bottom:2px solid var(--ink);padding:7px 10px;white-space:nowrap}
+.tbl td{border-bottom:1px solid var(--line-c);padding:7px 10px;vertical-align:top}
+.tbl td:first-child{white-space:nowrap;color:var(--muted)}
+
+.viewhead{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.viewhead p{margin:0;color:var(--muted);font-size:14px}
+.rows{display:flex;flex-direction:column;gap:12px}
+.row{display:grid;grid-template-columns:86px 1fr auto auto;gap:16px;align-items:center;background:var(--card);border:1.5px solid var(--ink);padding:10px 14px}
+.row__thumb{width:86px;height:60px;object-fit:cover;border:1px solid var(--line-c);background:#e9e2d2}
+.row__info{min-width:0}
+.row__info strong{display:block;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row__mail{font-weight:400;color:var(--muted);font-size:13px}
+.row__sub{display:block;font-size:12.5px;color:var(--muted)}
+.row__url{display:inline-flex;gap:5px;align-items:center;font-size:12.5px;color:var(--crimson);margin-top:2px}
+.row__url svg{width:12px;height:12px}
+.row__tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.row__act{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.row__ro,.row__me{font-size:12px;color:var(--muted);align-self:center}
+.row__me{color:var(--crimson);font-weight:600}
+.row--user{grid-template-columns:1fr auto auto}
+
+.badge{font-size:11px;font-weight:700;padding:2px 9px;border:1px solid var(--ink);letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
+.badge--on{background:var(--ink);color:var(--paper)}
+.badge--off{background:#e5dcc8;color:var(--muted);border-color:var(--muted)}
+.badge--admin{background:var(--crimson);border-color:var(--crimson);color:#fff}
+.badge--editor{background:var(--card)}
+.badge--viewer{background:#e5dcc8;border-color:var(--muted);color:var(--muted)}
+
+label{display:block;font-size:13.5px;font-weight:600;margin-bottom:13px}
+input,select,textarea{width:100%;font-family:inherit;font-size:14.5px;padding:9px 12px;border:1.5px solid var(--ink);background:#fff;margin-top:5px}
+input:focus,select:focus,textarea:focus{outline:none;box-shadow:3px 3px 0 var(--crimson)}
+input.ro,select:disabled,textarea:disabled,input:disabled{background:#eee7d6;color:var(--muted);cursor:not-allowed}
+textarea{resize:vertical}
+.fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.chk{display:flex;gap:9px;align-items:center;margin-top:28px}
+.chk input{width:auto;margin:0}
+.form-err{color:var(--bad);font-size:13.5px;font-weight:600;margin:0 0 12px}
+
+/* ชุดเลือก/อัปโหลดภาพ */
+.field{margin-bottom:13px}
+.field__label{display:block;font-size:13.5px;font-weight:600;margin-bottom:6px}
+.picker__drop{display:flex;gap:12px;align-items:center;padding:16px 14px;border:2px dashed var(--ink);background:#fff;cursor:pointer;transition:.15s}
+.picker__drop:hover,.picker__drop:focus-visible{background:#f6f1e7;outline:none}
+.picker__drop.is-over{border-color:var(--crimson);border-style:solid;background:#f7edee}
+.picker__drop.is-busy{opacity:.6;cursor:progress}
+.picker__drop svg{width:22px;height:22px;color:var(--crimson);flex:0 0 auto}
+.picker__drop span{font-size:12.5px;color:var(--muted);line-height:1.55}
+.picker__drop span strong{color:var(--ink)}
+.picker__prev{position:relative;margin-top:10px;border:1.5px solid var(--ink);background:#e9e2d2;width:fit-content;max-width:100%}
+.picker__img{display:block;max-width:100%;max-height:240px;width:auto;height:auto}
+.picker__cap{display:block;font-size:11px;color:var(--muted);padding:4px 9px;background:var(--card);border-top:1px solid var(--line-c)}
+.picker__del{position:absolute;top:8px;right:8px;width:30px;height:30px;display:grid;place-items:center;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;padding:0}
+.picker__del svg{width:14px;height:14px}
+.picker__del:hover{background:var(--bad);border-color:var(--bad);color:#fff}
+
+.modalback{position:fixed;inset:0;background:rgba(28,22,16,.55);display:grid;place-items:center;z-index:200;padding:18px}
+.modal{width:min(640px,100%);max-height:90vh;overflow:auto;background:var(--paper);border:1.5px solid var(--ink);box-shadow:10px 10px 0 var(--ink);padding:26px}
+.modal__h{font-size:19px;margin-bottom:18px}
+.modal__p{color:var(--muted);font-size:14.5px}
+.modal__act{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+
+.toasts{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:220}
+.toast{display:flex;gap:10px;align-items:center;background:var(--ink);color:var(--paper);padding:11px 16px;border-left:4px solid var(--crimson);font-size:14px;box-shadow:5px 5px 0 rgba(28,22,16,.25);animation:slidein .25s ease}
+.toast svg{width:16px;height:16px;flex:0 0 auto}
+.toast--ok{border-left-color:var(--ok)}
+.toast--bad{border-left-color:var(--bad)}
+@keyframes slidein{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+
+/* ---------- จอแคบ ---------- */
+@media (max-width:1024px){
+  .nav__name small{display:none}
+}
+@media (max-width:980px){
+  .card,.card--tall{grid-column:span 6}
+  .card--wide{grid-column:span 12}
+  .about{grid-template-columns:1fr;gap:14px}
+  .nav__burger{display:grid}
+  .nav__menu{position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1.5px solid var(--ink);flex-direction:column;align-items:stretch;padding:10px 22px 16px;gap:2px;display:none}
+  .nav__menu.open{display:flex}
+  .nav__menu a{border-bottom:none;border-left:3px solid transparent;padding:11px 10px}
+  .nav__menu a:hover{border-left-color:var(--ink)}
+  .nav__admin{margin-left:0}
+}
+@media (max-width:720px){
+  .cards>*{grid-column:span 12}
+  .hero__in{padding:44px 0 40px;flex-direction:column;align-items:flex-start;gap:30px}
+  .hero__cta{margin-top:24px}
+  .hero__panel{align-self:flex-start;margin:6px}
+  .seal{width:150px;height:150px}
+  .orgstrip__in{grid-template-columns:1fr 1fr}
+  .org{border-left:0;border-top:1px solid rgba(245,240,228,.22);padding:12px 18px}
+  .org:nth-child(-n+2){border-top:0}
+  .footer__in{grid-template-columns:1fr 1fr;gap:24px;padding:32px 0 22px}
+  .fieldgrid{grid-template-columns:1fr}
+  .statrow{flex-wrap:wrap}
+  .stat{flex:1 1 45%;border-right:0;border-bottom:1.5px solid var(--ink)}
+  .row{grid-template-columns:1fr}
+  .row__thumb{width:100%;height:120px}
+  .row__tags,.row__act{justify-content:flex-start}
+  .view{padding:18px 14px}
+  .topbar2{padding:13px 14px}
+  .shell{grid-template-columns:1fr}
+  .side{position:static;height:auto;border-right:0;border-bottom:1.5px solid var(--ink)}
+  .side__nav{flex-direction:row;overflow-x:auto}
+  .side__nav a{border-left:0;border-bottom:3px solid transparent;white-space:nowrap}
+  .side__nav a.on{border-bottom-color:var(--crimson)}
+  .side__user{flex-direction:row;align-items:center;justify-content:space-between}
+  .totop{right:14px;bottom:44px}
+}
+</style>
+</head>
+<body id="top">
+
+<div class="progress" id="progress"></div>
+
+<!-- ═══════════ ส่วนเว็บสาธารณะ (หน้าแรก) ═══════════ -->
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="nav__brand" href="#top">
+      <span class="nav__mark">ETC</span>
+      <span class="nav__name">
+        <strong>เทคโนโลยีและสื่อสารการศึกษา</strong>
+        <small>คณะศึกษาศาสตร์ · มหาวิทยาลัยมหาสารคาม</small>
+      </span>
+    </a>
+    <nav class="nav__menu" id="navMenu">
+      <a href="#infographics">สารสนเทศ</a>
+      <a href="#about">รู้จักสาขา</a>
+      <a href="#contact">ติดต่อสาขา</a>
+      <a href="https://www.msu.ac.th" target="_blank" rel="noopener" class="nav__out">
+        เว็บมหาวิทยาลัย <i data-lucide="arrow-up-right"></i>
+      </a>
+      <a href="#admin" class="nav__admin"><i data-lucide="lock"></i> ผู้ดูแลระบบ</a>
+    </nav>
+    <button class="nav__burger" id="navBurger" aria-label="เปิดเมนู"><i data-lucide="menu"></i></button>
+  </div>
+</header>
+
+<header class="hero">
+  <div class="wrap hero__in">
+    <div class="hero__text">
+      <p class="eyebrow rv">สาขาวิชา · Department</p>
+      <h1 class="hero__title rv" style="transition-delay:.07s">
+        เทคโนโลยีและ<br><em>สื่อสารการศึกษา</em>
+      </h1>
+      <p class="hero__sub rv" style="transition-delay:.14s">
+        Educational Technology &amp; Communications
+      </p>
+      <p class="hero__tag rv" style="transition-delay:.2s" id="mTag">
+        ผลิตครูและนักออกแบบการเรียนรู้ สำหรับโลกยุคดิจิทัล
+      </p>
+      <div class="hero__cta rv" style="transition-delay:.26s">
+        <a class="btn btn--primary" href="#infographics">สำรวจสารสนเทศ <i data-lucide="arrow-down"></i></a>
+        <a class="btn" href="#contact">ติดต่อสาขา <i data-lucide="phone"></i></a>
       </div>
     </div>
-    <h1>เข้าสู่ระบบผู้ดูแล</h1>
-    <p class="auth__lead">จัดการการ์ด Infographic ผู้ใช้ และตั้งค่าหน้าเว็บไซต์</p>
-    <form id="loginForm">
-      <label>อีเมล<input type="email" id="loginEmail" required autocomplete="username"></label>
-      <label>รหัสผ่าน<input type="password" id="loginPass" required autocomplete="current-password"></label>
-      <p class="form-err" id="loginErr" hidden></p>
-      <button class="btn btn--primary btn--block" id="loginBtn" type="submit">
-        เข้าสู่ระบบ <i data-lucide="log-in"></i>
-      </button>
-    </form>
-    <p class="auth__demo" id="authDemo" hidden>
-      โหมดตัวอย่าง — ลอง: <code>admin@msu.ac.th</code> / <code>etc1234</code>
-    </p>
-    <a href="index.html" class="auth__back">← กลับหน้าเว็บไซต์</a>
+    <div class="hero__panel rv" style="transition-delay:.3s">
+      <span class="tick tick--tl"></span><span class="tick tick--tr"></span>
+      <span class="tick tick--bl"></span><span class="tick tick--br"></span>
+      <svg class="seal" viewBox="0 0 200 200" role="img" aria-label="ตราประจำสาขาวิชา">
+        <g class="seal__spin">
+          <defs>
+            <path id="sealRing" d="M 100,100 m -70,0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0"/>
+          </defs>
+          <circle cx="100" cy="100" r="97" class="seal__outer"/>
+          <circle cx="100" cy="100" r="52" class="seal__inner"/>
+          <text class="seal__text">
+            <textPath href="#sealRing">FACULTY OF EDUCATION · MAHASARAKHAM UNIVERSITY · THAILAND ·</textPath>
+          </text>
+        </g>
+        <text x="100" y="94" text-anchor="middle" class="seal__mono">ETC</text>
+        <text x="100" y="118" text-anchor="middle" class="seal__yr">SINCE 1968</text>
+      </svg>
+      <p class="hero__panel-cap">ตราประจำสาขาวิชา<br>คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</p>
+    </div>
+  </div>
+</header>
+
+<!-- แถบข้อมูลองค์กร (แก้ข้อความได้จากที่นี่) -->
+<div class="orgstrip">
+  <div class="wrap orgstrip__in">
+    <div class="org"><small>คณะ</small><strong>ศึกษาศาสตร์</strong></div>
+    <div class="org"><small>มหาวิทยาลัย</small><strong>มหาสารคาม</strong></div>
+    <div class="org"><small>หลักสูตรที่เปิดสอน</small><strong>ป.ตรี – ป.เอก</strong></div>
+    <div class="org"><small>สถาปนา</small><strong>พ.ศ. 2511</strong></div>
   </div>
 </div>
 
-<!-- โครงหลังบ้าน -->
-<div class="shell" id="appView" hidden>
-  <aside class="side">
-    <div class="brand side__brand">
-      <span class="brand__mark">ETC</span>
-      <div><strong>ระบบจัดการเว็บ</strong></div>
-    </div>
-    <nav class="side__nav" id="nav"></nav>
-    <div class="side__user">
-      <strong id="uName"></strong>
-      <span id="uRole"></span>
-      <button class="btn btn--ghost btn--sm" id="logoutBtn">
-        <i data-lucide="log-out"></i> ออกจากระบบ
-      </button>
-    </div>
-  </aside>
-  <div class="main">
-    <header class="topbar2">
-      <h2 id="viewTitle">ภาพรวมระบบ</h2>
-      <a class="btn btn--sm" href="index.html" target="_blank" rel="noopener">
-        <i data-lucide="external-link"></i> ดูหน้าเว็บจริง
-      </a>
+<div class="ticker" id="ticker" hidden>
+  <span class="ticker__label"><i data-lucide="megaphone"></i> ประกาศ</span>
+  <div class="ticker__viewport"><div class="ticker__inner" id="tickerInner"></div></div>
+</div>
+
+<main class="wrap">
+  <section class="section" id="infographics">
+    <header class="sec-head rv">
+      <span class="sec-no">01</span>
+      <div class="sec-head__text">
+        <h2>ประตูสารสนเทศ</h2>
+        <p>แตะภาพ Infographic เพื่อเข้าสู่หน้าข้อมูลที่กำหนดไว้</p>
+      </div>
+      <span class="sec-head__rule"></span>
     </header>
-    <div class="view" id="view"></div>
+    <div class="cards" id="cards">
+      <div class="sk"></div><div class="sk"></div><div class="sk"></div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="about__left rv">
+      <span class="sec-no">02</span>
+      <h2>รู้จักสาขาของเรา</h2>
+    </div>
+    <div class="about__right">
+      <div class="about__text rv" id="aboutText">
+        <p>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา มุ่งผลิตครูและบุคลากรทางการศึกษา
+        ที่ออกแบบการเรียนรู้ด้วยสื่อและเทคโนโลยีอย่างสร้างสรรค์</p>
+      </div>
+      <!-- พันธกิจหลัก 3 ข้อ (แก้ข้อความได้จากที่นี่) -->
+      <ul class="missions">
+        <li class="rv"><span>01</span>
+          <div><strong>ผลิตครูยุคใหม่</strong>
+          <p>บัณฑิตที่ผสานศาสตร์การศึกษากับเทคโนโลยีดิจิทัลเพื่อการเรียนรู้ที่มีคุณภาพ</p></div>
+        </li>
+        <li class="rv" style="transition-delay:.08s"><span>02</span>
+          <div><strong>ออกแบบสื่อและนวัตกรรมการเรียนรู้</strong>
+          <p>พัฒนาสื่อการสอน ระบบ E-Learning และสื่อโสตทัศน์ที่ทันสมัย</p></div>
+        </li>
+        <li class="rv" style="transition-delay:.16s"><span>03</span>
+          <div><strong>วิจัยและบริการวิชาการ</strong>
+          <p>สร้างองค์ความรู้ใหม่และให้บริการวิชาการแก่สังคมอย่างยั่งยืน</p></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" id="contact">
+  <div class="wrap footer__in">
+    <div class="footer__col footer__brand">
+      <div class="brand brand--foot">
+        <span class="brand__mark">ETC</span>
+        <div>
+          <strong>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา</strong>
+          <span>คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</span>
+        </div>
+      </div>
+      <p class="footer__addr">เลขที่ 41 ถ.ขาวเงียบ ต.ตลาด อ.เมือง จ.มหาสารคาม 44000</p>
+    </div>
+    <div class="footer__col">
+      <h4>ติดต่อสาขา</h4>
+      <p id="fPhone" hidden>โทร <span id="fPhoneV"></span></p>
+      <p id="fEmail" hidden><span id="fEmailV"></span></p>
+      <p class="footer__muted">จันทร์ – ศุกร์ 08:30 – 16:30 น.</p>
+    </div>
+    <div class="footer__col footer__links">
+      <h4>ลิงก์ที่เกี่ยวข้อง</h4>
+      <a href="https://www.msu.ac.th" target="_blank" rel="noopener">มหาวิทยาลัยมหาสารคาม</a>
+      <a href="#infographics">ประตูสารสนเทศ</a>
+      <a href="#about">รู้จักสาขา</a>
+    </div>
+    <div class="footer__col">
+      <h4>ระบบเว็บไซต์</h4>
+      <a href="#admin">เข้าสู่ระบบผู้ดูแล</a>
+      <p class="footer__muted">ข้อมูลอัปเดตล่าสุด <span id="fUpdated">—</span></p>
+    </div>
+  </div>
+  <div class="wrap footer__base">
+    <span>© <span id="year"></span> สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</span>
+  </div>
+</footer>
+
+<button class="totop" id="totop" hidden aria-label="กลับขึ้นด้านบน"><i data-lucide="arrow-up"></i></button>
+
+<!-- ═══════════ โหมดผู้ดูแล (เปิดผ่านปุ่มผู้ดูแล หรือ URL#admin) ═══════════ -->
+<div id="adminRoot" hidden>
+  <div class="auth" id="aAuth">
+    <div class="auth__panel">
+      <div class="brand">
+        <span class="brand__mark">ETC</span>
+        <div>
+          <strong>ระบบจัดการเว็บไซต์</strong>
+          <span>สาขาวิชาฯ คณะศึกษาศาสตร์ ม.มหาสารคาม</span>
+        </div>
+      </div>
+      <h1>เข้าสู่ระบบผู้ดูแล</h1>
+      <p class="auth__lead">จัดการการ์ด Infographic ผู้ใช้ และตั้งค่าหน้าเว็บไซต์</p>
+      <form id="aLoginForm">
+        <label>อีเมล<input type="email" id="aLoginEmail" required autocomplete="username"></label>
+        <label>รหัสผ่าน<input type="password" id="aLoginPass" required autocomplete="current-password"></label>
+        <p class="form-err" id="aLoginErr" hidden></p>
+        <button class="btn btn--primary btn--block" id="aLoginBtn" type="submit">
+          เข้าสู่ระบบ <i data-lucide="log-in"></i>
+        </button>
+      </form>
+      <p class="auth__demo" id="aAuthDemo" hidden>
+        โหมดตัวอย่าง — ลอง: <code>admin@msu.ac.th</code> / <code>etc1234</code>
+      </p>
+      <a href="#top" class="auth__back">← กลับหน้าเว็บไซต์</a>
+    </div>
+  </div>
+
+  <div class="shell" id="aApp" hidden>
+    <aside class="side">
+      <div class="brand side__brand">
+        <span class="brand__mark">ETC</span>
+        <div><strong>ระบบจัดการเว็บ</strong></div>
+      </div>
+      <nav class="side__nav" id="aNav"></nav>
+      <div class="side__user">
+        <strong id="uName"></strong>
+        <span id="uRole"></span>
+        <a class="btn btn--ghost btn--sm" href="#top"><i data-lucide="home"></i> กลับหน้าเว็บไซต์</a>
+        <button class="btn btn--ghost btn--sm" id="aLogoutBtn" style="margin-top:6px">
+          <i data-lucide="log-out"></i> ออกจากระบบ
+        </button>
+      </div>
+    </aside>
+    <div class="main">
+      <header class="topbar2">
+        <h2 id="aViewTitle">ภาพรวมระบบ</h2>
+        <a class="btn btn--sm" href="#top"><i data-lucide="home"></i> กลับหน้าเว็บ</a>
+      </header>
+      <div class="view" id="aView"></div>
+    </div>
   </div>
 </div>
 
-<!-- โมดัล + Toast + แถบโหมดตัวอย่าง -->
+<!-- องค์ประกอบใช้ร่วมทั้งสองโหมด -->
 <div class="modalback" id="modalBack" hidden><div class="modal" id="modalBox"></div></div>
 <div class="toasts" id="toasts"></div>
-<div class="mockbar" id="mockbar" hidden>โหมดตัวอย่าง — ข้อมูลที่แก้จะหายเมื่อรีเฟรช</div>
+<div class="mockbar" id="mockbar" hidden>โหมดตัวอย่าง (ข้อมูลจำลอง) — ยังไม่ได้เชื่อมต่อ Google Sheet</div>
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<script src="js/api.js"></script>
-<script src="js/admin.js"></script>
+<script>
+/* =====================================================
+   ▼▼ ตั้งค่าการเชื่อมต่อระบบ (แก้บรรทัดนี้!)
+   ใส่ URL ของ Web App จาก Apps Script เช่น
+   'https://script.google.com/macros/s/AKfy.../exec'
+   ถ้ายังไม่ใส่ ระบบจะทำงานใน "โหมดตัวอย่าง" (Mock data)
+   ===================================================== */
+const API_URL = 'REPLACE_WITH_YOUR_WEB_APP_URL';
+
+const $ = (s, p = document) => p.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g,
+  m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+
+function isMockMode() { return !/^https:\/\/script\.google/.test(API_URL); }
+
+/* ---------- เรียก API ---------- */
+async function apiCall(action, data = {}, token = null) {
+  if (isMockMode()) return mockApi(action, data, token);
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ action, data, token }),
+  });
+  let out;
+  try { out = await res.json(); }
+  catch (e) { throw new Error('เชื่อมต่อเซิร์ฟเวอร์ไม่สำเร็จ — ตรวจ URL ในสคริปต์และสิทธิ์ Web App (ต้องเป็น Anyone)'); }
+  if (!out.ok) {
+    const err = new Error(out.error || 'เกิดข้อผิดพลาด');
+    err.code = out.code || '';
+    throw err;
+  }
+  return out;
+}
+
+/* ---------- โหมดตัวอย่าง (Mock) ---------- */
+const MOCK = {
+  settings: {
+    siteTitle: 'สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา',
+    tagline: 'ผลิตครูและนักออกแบบการเรียนรู้ สำหรับโลกยุคดิจิทัล',
+    announcement: 'เปิดรับสมัครเรียนรอบ Admission — สอบถามเพิ่มเติมที่กองวิชาการ คณะศึกษาศาสตร์',
+    about: '<p>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม มุ่งผลิตครูและบุคลากรทางการศึกษาที่ออกแบบ พัฒนา และนำสื่อกับเทคโนโลยีมาใช้เพื่อการเรียนรู้อย่างสร้างสรรค์</p>',
+    phone: '0 4375 4xxx',
+    email: 'etc@edu.msu.ac.th',
+  },
+  cards: [
+    { id: '1', title: 'หลักสูตรที่เปิดสอน', subtitle: 'ปริญญาตรี – ปริญญาเอก', imageUrl: 'https://picsum.photos/seed/etc-curric/1600/900', linkUrl: 'https://www.msu.ac.th', size: 'wide', active: true },
+    { id: '2', title: 'บุคลากรประจำสาขา', subtitle: 'อาจารย์และนักวิชาการ', imageUrl: 'https://picsum.photos/seed/etc-staff/800/1000', linkUrl: 'https://www.msu.ac.th', size: 'normal', active: true },
+    { id: '3', title: 'ข่าวและประกาศ', subtitle: 'รับสมัคร ทุน กิจกรรม', imageUrl: 'https://picsum.photos/seed/etc-news/800/1000', linkUrl: 'https://www.msu.ac.th', size: 'normal', active: true },
+    { id: '4', title: 'วิจัยและบริการวิชาการ', subtitle: 'ผลงานวิชาการของสาขา', imageUrl: 'https://picsum.photos/seed/etc-research/800/1050', linkUrl: 'https://www.msu.ac.th', size: 'tall', active: true },
+    { id: '5', title: 'สื่อการเรียน E-Learning', subtitle: 'คลังสื่อดิจิทัล', imageUrl: 'https://picsum.photos/seed/etc-media/800/1000', linkUrl: 'https://www.msu.ac.th', size: 'normal', active: true },
+    { id: '6', title: 'ติดต่อสาขาวิชา', subtitle: 'อีเมลและโทรศัพท์', imageUrl: 'https://picsum.photos/seed/etc-contact/1600/900', linkUrl: 'https://www.msu.ac.th', size: 'wide', active: false },
+  ],
+  users: [
+    { id: 'u1', email: 'admin@msu.ac.th', name: 'ผู้ดูแลระบบ', role: 'ADMIN', status: 'ACTIVE', lastLogin: '', createdAt: '' },
+    { id: 'u2', email: 'editor@msu.ac.th', name: 'อาจารย์สมศรี ใจดี', role: 'EDITOR', status: 'ACTIVE', lastLogin: '', createdAt: '' },
+    { id: 'u3', email: 'viewer@msu.ac.th', name: 'นักศึกษา กช. ตัวอย่าง', role: 'VIEWER', status: 'ACTIVE', lastLogin: '', createdAt: '' },
+  ],
+  logs: [
+    { time: '2025-01-15T09:24:00', email: 'admin@msu.ac.th', action: 'LOGIN', detail: 'เข้าสู่ระบบสำเร็จ' },
+    { time: '2025-01-15T09:20:00', email: 'admin@msu.ac.th', action: 'EDIT_CARD', detail: 'หลักสูตรที่เปิดสอน' },
+  ],
+};
+let M = JSON.parse(JSON.stringify(MOCK));
+
+function mockApi(action, data, token) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try { resolve(mockRoute(action, data, token)); }
+      catch (e) { reject(e); }
+    }, 260);
+  });
+}
+function mockRoute(action, d, token) {
+  if (action === 'site')
+    return { ok: true, settings: M.settings, cards: M.cards.filter(c => c.active !== false) };
+  if (action === 'login') {
+    const u = M.users.find(u => u.email === String(d.email || '').trim().toLowerCase());
+    if (!u || d.password !== 'etc1234')
+      throw new Error('อีเมลหรือรหัสผ่านไม่ถูกต้อง (โหมดตัวอย่าง ใช้รหัส etc1234)');
+    if (u.status !== 'ACTIVE') throw new Error('บัญชีนี้ถูกระงับการใช้งาน');
+    return { ok: true, token: 'MOCK', user: u };
+  }
+  if (token !== 'MOCK') { const e = new Error('SESSION_EXPIRED'); e.code = 'SESSION_EXPIRED'; throw e; }
+  switch (action) {
+    case 'me':          return { ok: true, user: M.users[0] };
+    case 'logout':      return { ok: true };
+    case 'stats':       return { ok: true, cards: M.cards.length,
+                                 active: M.cards.filter(c => c.active !== false).length,
+                                 users: M.users.length, logs: M.logs };
+    case 'listCards':   return { ok: true, cards: M.cards };
+    case 'getSettings': return { ok: true, settings: M.settings };
+    case 'listUsers':   return { ok: true, users: M.users };
+    case 'saveCard': {
+      if (!d.title) throw new Error('กรุณากรอกชื่อการ์ด');
+      const c = M.cards.find(c => String(c.id) === String(d.id));
+      if (c) Object.assign(c, d);
+      else M.cards.push({ id: String(Date.now()), order: M.cards.length + 1, ...d });
+      return { ok: true };
+    }
+    case 'deleteCard':
+      M.cards = M.cards.filter(c => String(c.id) !== String(d.id)); return { ok: true };
+    case 'toggleCard': {
+      const c = M.cards.find(c => String(c.id) === String(d.id));
+      if (c) c.active = d.active !== false; return { ok: true };
+    }
+    case 'moveCard': {
+      const i = M.cards.findIndex(c => String(c.id) === String(d.id));
+      const j = d.dir === 'up' ? i - 1 : i + 1;
+      if (i >= 0 && j >= 0 && j < M.cards.length) {
+        const t = M.cards[i]; M.cards[i] = M.cards[j]; M.cards[j] = t;
+      }
+      return { ok: true };
+    }
+    case 'uploadImage':
+      return { ok: true, url: 'https://picsum.photos/seed/preview' + Date.now() + '/900/640' };
+    case 'saveUser': {
+      if (d.id) {
+        const u = M.users.find(u => String(u.id) === String(d.id));
+        if (u) Object.assign(u, { name: d.name, role: d.role, status: d.status });
+      } else {
+        M.users.push({ id: String(Date.now()), email: d.email, name: d.name,
+                       role: d.role, status: d.status, lastLogin: '', createdAt: '' });
+      }
+      return { ok: true };
+    }
+    case 'deleteUser':
+      M.users = M.users.filter(u => String(u.id) !== String(d.id)); return { ok: true };
+    case 'saveSettings':
+      Object.assign(M.settings, d); return { ok: true };
+  }
+  throw new Error('คำสั่งไม่ถูกต้อง: ' + action);
+}
+
+/* =====================================================
+   ส่วนเว็บสาธารณะ (หน้าแรก)
+   ===================================================== */
+const el = {
+  cards: $('#cards'), ticker: $('#ticker'), tInner: $('#tickerInner'),
+  tag: $('#mTag'), about: $('#aboutText'),
+  fPhone: $('#fPhone'), fPhoneV: $('#fPhoneV'),
+  fEmail: $('#fEmail'), fEmailV: $('#fEmailV'),
+  updated: $('#fUpdated'), mockbar: $('#mockbar'),
+};
+
+async function loadPublic() {
+  try {
+    const d = await apiCall('site');
+    paint(d);
+  } catch (err) {
+    el.cards.innerHTML = `
+      <div class="empty">
+        <h3>โหลดข้อมูลไม่สำเร็จ</h3>
+        <p>${esc(err.message)}</p>
+        <p>ตรวจ URL ของ Web App ในสคริปต์ และสิทธิ์การเข้าถึง (ต้องตั้งเป็น Anyone)</p>
+      </div>`;
+    lucide.createIcons();
+  }
+}
+
+function paint(d) {
+  const s = d.settings || {};
+  if (s.siteTitle) document.title = s.siteTitle + ' · คณะศึกษาศาสตร์ ม.มหาสารคาม';
+  if (s.tagline) el.tag.textContent = s.tagline;
+  if (s.about) el.about.innerHTML = s.about;
+  if (s.phone) { el.fPhone.hidden = false; el.fPhoneV.textContent = s.phone; }
+  if (s.email) { el.fEmail.hidden = false; el.fEmailV.textContent = s.email; }
+  el.updated.textContent = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) + ' น.';
+  if (s.announcement) {
+    el.ticker.hidden = false;
+    const t = esc(s.announcement);
+    el.tInner.innerHTML = `<span>${t}</span><span>${t}</span>`;
+  }
+  const cards = d.cards || [];
+  if (cards.length) {
+    el.cards.innerHTML = cards.map(cardHTML).join('');
+  } else {
+    el.cards.innerHTML = `
+      <div class="empty">
+        <h3>ยังไม่มีรายการสารสนเทศ</h3>
+        <p>ผู้ดูแลระบบสามารถเพิ่มรายการได้จาก
+        <a href="#admin">ระบบจัดการผู้ดูแล</a></p>
+      </div>`;
+  }
+  lucide.createIcons();
+  watchReveals();
+}
+
+function cardHTML(c, i) {
+  const size = ['wide', 'tall'].includes(c.size) ? c.size : 'normal';
+  const no = String(i + 1).padStart(2, '0');
+  return `
+  <a class="card card--${size} rv" style="transition-delay:${Math.min(i * 0.07, 0.5)}s"
+     href="${esc(c.linkUrl || '#')}" target="_blank" rel="noopener" title="${esc(c.title)}">
+    <figure class="card__img">
+      <img src="${esc(c.imageUrl || '')}" alt="${esc(c.title)}" loading="lazy">
+    </figure>
+    <span class="card__peek">เปิดดูข้อมูล</span>
+    <div class="card__bar">
+      <span class="card__no">${no}</span>
+      <div class="card__meta">
+        <h3>${esc(c.title)}</h3>
+        ${c.subtitle ? `<p>${esc(c.subtitle)}</p>` : ''}
+      </div>
+      <span class="card__go"><i data-lucide="arrow-up-right"></i></span>
+    </div>
+  </a>`;
+}
+
+function watchReveals() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.rv:not(.in)').forEach(x => io.observe(x));
+}
+
+/* อินเทอร์แอกชันหน้าเว็บ: เมนูมือถือ / scroll / ปุ่มขึ้นบน */
+function interactions() {
+  const burger = $('#navBurger'), menu = $('#navMenu');
+  burger.addEventListener('click', () => {
+    setBurger(burger, menu.classList.toggle('open'));
+  });
+  menu.addEventListener('click', e => {
+    if (e.target.closest('a')) { menu.classList.remove('open'); setBurger(burger, false); }
+  });
+  const nav = $('#nav'), prog = $('#progress'), top = $('#totop');
+  const onScroll = () => {
+    const y = scrollY;
+    const h = document.documentElement.scrollHeight - innerHeight;
+    nav.classList.toggle('scrolled', y > 8);
+    prog.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+    top.hidden = y < 600;
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  top.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+}
+function setBurger(b, open) {
+  b.innerHTML = open ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+  b.setAttribute('aria-label', open ? 'ปิดเมนู' : 'เปิดเมนู');
+  lucide.createIcons();
+}
+
+/* =====================================================
+   โหมดผู้ดูแล (ภายในหน้าเดียว — เปิดผ่าน #admin)
+   ===================================================== */
+const RANK = { VIEWER: 1, EDITOR: 2, ADMIN: 3 };
+const LS_KEY = 'etc_token';
+const S = { token: localStorage.getItem(LS_KEY), user: null, view: 'overview',
+            cards: [], users: [] };
+let adminOpen = false, adminBound = false;
+
+const NAV = [
+  ['overview',  'ภาพรวมระบบ',   'layout-dashboard'],
+  ['cards',     'การ์ดสารสนเทศ', 'layout-grid'],
+  ['users',     'ผู้ใช้และสิทธิ์', 'users', 'ADMIN'],
+  ['settings',  'ตั้งค่าเว็บไซต์', 'settings'],
+];
+const SETTING_FIELDS = [
+  ['siteTitle',    'ชื่อเว็บไซต์ (แสดงที่แท็บเบราว์เซอร์)'],
+  ['tagline',      'คำโปรยใต้ชื่อสาขา'],
+  ['announcement', 'ข้อความประกาศวิ่งด้านบน (เว้นว่าง = ไม่แสดง)'],
+  ['about',        'ข้อความ "รู้จักสาขา" (ใช้แท็ก HTML ได้ เช่น <p>…</p>)', 'textarea'],
+  ['phone',        'โทรศัพท์ติดต่อ'],
+  ['email',        'อีเมลติดต่อ'],
+];
+
+/* สลับโหมด สาธารณะ ↔ ผู้ดูแล ตาม hash */
+function onHash() {
+  const admin = location.hash === '#admin';
+  if (admin === adminOpen) return;
+  admin ? openAdmin() : closeAdmin();
+}
+function openAdmin() {
+  adminOpen = true;
+  $('#adminRoot').hidden = false;
+  document.body.classList.add('admin-open');
+  adminBoot();
+}
+function closeAdmin() {
+  adminOpen = false;
+  $('#adminRoot').hidden = true;
+  document.body.classList.remove('admin-open');
+  closeModal();
+  loadPublic();          // กลับหน้าเว็บ พร้อมดึงข้อมูลใหม่
+}
+
+async function adminBoot() {
+  if (!adminBound) { adminBound = true; bindAdminGlobal(); }
+  if (!S.token) return showLogin();
+  try {
+    const r = await apiCall('me', {}, S.token);
+    S.user = r.user;
+    enterApp();
+  } catch (e) {
+    localStorage.removeItem(LS_KEY);
+    S.token = null;
+    showLogin();
+  }
+}
+
+function showLogin() {
+  $('#aAuth').hidden = false;
+  $('#aApp').hidden = true;
+  if (isMockMode()) $('#aAuthDemo').hidden = false;
+}
+
+async function onLogin(e) {
+  e.preventDefault();
+  const btn = $('#aLoginBtn');
+  btn.disabled = true; btn.textContent = 'กำลังตรวจสอบ…';
+  $('#aLoginErr').hidden = true;
+  try {
+    const r = await apiCall('login', {
+      email: $('#aLoginEmail').value.trim(),
+      password: $('#aLoginPass').value,
+    });
+    S.token = r.token;
+    localStorage.setItem(LS_KEY, r.token);
+    S.user = r.user;
+    enterApp();
+    toast(`ยินดีต้อนรับ ${r.user.name}`, 'ok');
+  } catch (err) {
+    const p = $('#aLoginErr');
+    p.textContent = err.message; p.hidden = false;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'เข้าสู่ระบบ <i data-lucide="log-in"></i>';
+    lucide.createIcons();
+  }
+}
+
+function enterApp() {
+  $('#aAuth').hidden = true;
+  $('#aApp').hidden = false;
+  $('#uName').textContent = S.user.name;
+  $('#uRole').textContent = roleLabel(S.user.role);
+  renderView();
+}
+
+function roleLabel(r) {
+  return { ADMIN: 'ผู้ดูแลระบบ', EDITOR: 'ผู้จัดการเนื้อหา', VIEWER: 'ผู้ชม' }[r] || r;
+}
+function fmt(v) {
+  if (!v) return '—';
+  const d = new Date(v);
+  if (isNaN(d)) return '—';
+  return d.toLocaleString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function renderView() {
+  const titles = { overview: 'ภาพรวมระบบ', cards: 'การ์ดสารสนเทศ',
+                   users: 'ผู้ใช้และสิทธิ์', settings: 'ตั้งค่าเว็บไซต์' };
+  $('#aViewTitle').textContent = titles[S.view] || '';
+  $('#aNav').innerHTML = NAV
+    .filter(n => !n[3] || RANK[S.user.role] >= RANK[n[3]])
+    .map(n => `<a href="#" data-act="nav" data-id="${n[0]}" class="${S.view === n[0] ? 'on' : ''}">
+      <i data-lucide="${n[2]}"></i><span>${n[1]}</span></a>`).join('');
+  $('#aView').innerHTML = `<div class="loading"><i data-lucide="loader"></i> กำลังโหลด…</div>`;
+  lucide.createIcons();
+  (async () => {
+    try {
+      if (S.view === 'overview') await viewOverview();
+      if (S.view === 'cards')    await viewCards();
+      if (S.view === 'users')    await viewUsers();
+      if (S.view === 'settings') await viewSettings();
+    } catch (e) { fail(e); }
+    lucide.createIcons();
+  })();
+}
+
+async function viewOverview() {
+  const r = await apiCall('stats', {}, S.token);
+  let html = `<div class="statrow">
+    <div class="stat"><span class="stat__n">${r.cards}</span><span class="stat__l">การ์ดทั้งหมด</span></div>
+    <div class="stat"><span class="stat__n">${r.active}</span><span class="stat__l">เปิดใช้งานบนหน้าเว็บ</span></div>`;
+  html += (r.users !== undefined)
+    ? `<div class="stat"><span class="stat__n">${r.users}</span><span class="stat__l">บัญชีผู้ใช้</span></div>`
+    : `<div class="stat"><span class="stat__n" style="font-size:26px;padding-top:8px">${roleLabel(S.user.role)}</span><span class="stat__l">บทบาทของคุณ</span></div>`;
+  html += `</div>`;
+  if (r.logs && r.logs.length) {
+    html += `<div class="panel"><h3>กิจกรรมล่าสุด</h3>
+      <table class="tbl">
+        <thead><tr><th>เวลา</th><th>ผู้ใช้</th><th>การกระทำ</th><th>รายละเอียด</th></tr></thead>
+        <tbody>${r.logs.map(l => `<tr>
+          <td>${fmt(l.time)}</td><td>${esc(l.email)}</td>
+          <td>${esc(l.action)}</td><td>${esc(l.detail)}</td></tr>`).join('')}
+        </tbody></table></div>`;
+  }
+  $('#aView').innerHTML = html;
+}
+
+async function viewCards() {
+  const r = await apiCall('listCards', {}, S.token);
+  S.cards = r.cards;
+  const canEdit = RANK[S.user.role] >= RANK.EDITOR;
+  const rows = S.cards.map((c, i) => {
+    let host = '';
+    try { if (c.linkUrl) host = new URL(c.linkUrl).host; } catch (e) {}
+    return `<div class="row">
+      <img class="row__thumb" src="${esc(c.imageUrl)}" alt="" loading="lazy">
+      <div class="row__info">
+        <strong>${esc(c.title)}</strong>
+        ${c.subtitle ? `<span class="row__sub">${esc(c.subtitle)}</span>` : ''}
+        <span class="row__url"><i data-lucide="link"></i>${esc(host || 'ไม่ได้ตั้งลิงก์')}</span>
+      </div>
+      <div class="row__tags">
+        <span class="badge">${esc(c.size || 'normal')}</span>
+        <span class="badge ${c.active ? 'badge--on' : 'badge--off'}">${c.active ? 'เปิดใช้งาน' : 'ซ่อนอยู่'}</span>
+      </div>
+      <div class="row__act">
+        ${canEdit ? `
+        <button class="btn btn--icon" data-act="card-up" data-id="${c.id}" ${i === 0 ? 'disabled' : ''} title="เลื่อนขึ้น"><i data-lucide="arrow-up"></i></button>
+        <button class="btn btn--icon" data-act="card-down" data-id="${c.id}" ${i === S.cards.length - 1 ? 'disabled' : ''} title="เลื่อนลง"><i data-lucide="arrow-down"></i></button>
+        <button class="btn btn--icon" data-act="card-edit" data-id="${c.id}" title="แก้ไข"><i data-lucide="pencil"></i></button>
+        <button class="btn btn--icon" data-act="card-toggle" data-id="${c.id}" title="${c.active ? 'ซ่อนจากหน้าเว็บ' : 'แสดงบนหน้าเว็บ'}"><i data-lucide="${c.active ? 'eye-off' : 'eye'}"></i></button>
+        <button class="btn btn--icon btn--danger" data-act="card-del" data-id="${c.id}" title="ลบ"><i data-lucide="trash-2"></i></button>` :
+        `<span class="row__ro">ดูอย่างเดียว</span>`}
+      </div>
+    </div>`;
+  }).join('');
+  $('#aView').innerHTML = `
+    <div class="viewhead">
+      <p>ลำดับในหน้านี้คือลำดับการแสดงผลบนหน้าแรก (จากบนลงล่าง)</p>
+      ${canEdit ? `<button class="btn btn--primary" data-act="card-new"><i data-lucide="plus"></i> เพิ่มการ์ดใหม่</button>` : ''}
+    </div>
+    <div class="rows">${rows || `<div class="empty"><p>ยังไม่มีการ์ด — เพิ่มการ์ดใบแรกของคุณได้จากปุ่มด้านบน</p></div>`}</div>`;
+}
+
+function openCardModal(c) {
+  modal(`
+    <h3 class="modal__h">${c ? 'แก้ไขการ์ด' : 'เพิ่มการ์ดใหม่'}</h3>
+    <form id="cardForm">
+      <div class="fieldgrid">
+        <label>ชื่อการ์ด *<input name="title" required maxlength="80" value="${esc(c?.title || '')}"></label>
+        <label>คำบรรยายสั้น<input name="subtitle" maxlength="120" value="${esc(c?.subtitle || '')}"></label>
+      </div>
+      <label>ลิงก์ปลายทางเมื่อคลิกภาพ *<input name="linkUrl" type="url" required placeholder="https://…" value="${esc(c?.linkUrl || '')}"></label>
+      <div class="fieldgrid">
+        <label>ขนาดบนหน้าเว็บ
+          <select name="size">
+            <option value="normal" ${!c || c.size === 'normal' ? 'selected' : ''}>ปกติ (1 ใน 3 ช่อง)</option>
+            <option value="wide" ${c?.size === 'wide' ? 'selected' : ''}>กว้าง (ครึ่งหนึ่งของแถว)</option>
+            <option value="tall" ${c?.size === 'tall' ? 'selected' : ''}>สูง (แนวตั้ง)</option>
+          </select>
+        </label>
+        <label class="chk"><input type="checkbox" name="active" ${!c || c.active !== false ? 'checked' : ''}> แสดงบนหน้าเว็บ</label>
+      </div>
+      <div class="field">
+        <span class="field__label">ภาพ Infographic *</span>
+        <div class="picker">
+          <div class="picker__drop" id="pickerDrop" role="button" tabindex="0" aria-label="เลือกไฟล์ภาพจากเครื่อง">
+            <i data-lucide="image-up"></i>
+            <span id="pickerHint">
+              <strong>คลิกเพื่อเลือกภาพจากเครื่อง</strong> หรือลากไฟล์ภาพมาวางที่นี่<br>
+              ระบบจะบีบอัดและอัปโหลดขึ้น Google Drive ให้อัตโนมัติ
+            </span>
+            <input type="file" id="uplFile" accept="image/*" hidden>
+          </div>
+          <div class="picker__prev" id="pickerPrevBox" ${c?.imageUrl ? '' : 'hidden'}>
+            <img id="uplPrev" class="picker__img" src="${esc(c?.imageUrl || '')}" alt="ตัวอย่างภาพ">
+            <button type="button" class="picker__del" id="pickDel" title="ลบรูปนี้ออก"><i data-lucide="trash-2"></i></button>
+            <span class="picker__cap" id="pickerCap">ตัวอย่างภาพ</span>
+          </div>
+          <input id="imageUrl" placeholder="หรือวาง URL ของภาพโดยตรง เช่น https://…" value="${esc(c?.imageUrl || '')}" style="margin-top:10px">
+        </div>
+      </div>
+      <div class="modal__act">
+        <button type="button" class="btn" data-close>ยกเลิก</button>
+        <button type="submit" class="btn btn--primary" id="cardSaveBtn">บันทึกการ์ด</button>
+      </div>
+    </form>`);
+  bindPicker();
+  const f = $('#cardForm');
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = $('#cardSaveBtn');
+    btn.disabled = true;
+    const fd = new FormData(f);
+    try {
+      await apiCall('saveCard', {
+        id: c ? c.id : undefined,
+        title: String(fd.get('title')).trim(),
+        subtitle: String(fd.get('subtitle')).trim(),
+        linkUrl: String(fd.get('linkUrl')).trim(),
+        imageUrl: String($('#imageUrl').value).trim(),
+        size: fd.get('size'),
+        active: fd.get('active') === 'on',
+      }, S.token);
+      closeModal();
+      toast('บันทึกการ์ดเรียบร้อย', 'ok');
+      renderView();
+    } catch (err) { fail(err); btn.disabled = false; }
+  });
+  lucide.createIcons();
+}
+
+/* ชุดเลือก/อัปโหลดภาพ: คลิกเลือกไฟล์ + ลากวาง + ตัวอย่างทันที */
+function bindPicker() {
+  const drop = $('#pickerDrop');
+  const file = $('#uplFile');
+  const input = $('#imageUrl');
+  const hint = $('#pickerHint');
+  const prevBox = $('#pickerPrevBox');
+  const prev = $('#uplPrev');
+  const cap = $('#pickerCap');
+
+  function showPrev(url) {
+    if (!url) { prevBox.hidden = true; return; }
+    prevBox.hidden = false;
+    prev.style.display = '';
+    prev.onerror = () => {
+      prev.style.display = 'none';
+      cap.textContent = 'โหลดตัวอย่างจาก URL นี้ไม่สำเร็จ — ตรวจลิงก์อีกครั้ง';
+    };
+    prev.src = url;
+    cap.textContent = 'ตัวอย่างภาพ';
+  }
+  drop.addEventListener('click', () => file.click());
+  drop.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); file.click(); }
+  });
+  ['dragenter', 'dragover'].forEach(ev =>
+    drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('is-over'); }));
+  ['dragleave', 'drop'].forEach(ev =>
+    drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('is-over'); }));
+  drop.addEventListener('drop', e => {
+    const fs = e.dataTransfer && e.dataTransfer.files;
+    if (fs && fs.length) handleFile(fs[0]);
+  });
+  file.addEventListener('change', e => {
+    if (e.target.files[0]) handleFile(e.target.files[0]);
+    e.target.value = '';
+  });
+  input.addEventListener('input', () => showPrev(input.value.trim()));
+  $('#pickDel').addEventListener('click', () => { input.value = ''; prevBox.hidden = true; });
+
+  async function handleFile(fileObj) {
+    if (!/^image\//.test(fileObj.type)) { toast('กรุณาเลือกไฟล์ภาพเท่านั้น', 'bad'); return; }
+    hint.innerHTML = 'กำลังบีบอัดและอัปโหลดภาพ… <strong>กรุณารอสักครู่</strong>';
+    drop.classList.add('is-busy');
+    try {
+      const dataUrl = await resizeImage(fileObj, 1600, 0.86);
+      showPrev(dataUrl);
+      const r = await apiCall('uploadImage', {
+        name: fileObj.name, mime: 'image/jpeg', base64: dataUrl.split(',')[1],
+      }, S.token);
+      input.value = r.url;
+      showPrev(r.url);
+      hint.innerHTML = '<strong>อัปโหลดสำเร็จ</strong> — คลิกอีกครั้งหากต้องการเปลี่ยนรูป';
+      toast('อัปโหลดภาพขึ้น Google Drive แล้ว', 'ok');
+    } catch (err) {
+      fail(err);
+      hint.textContent = 'อัปโหลดไม่สำเร็จ — ลองเลือกไฟล์อีกครั้ง หรือวาง URL ของภาพในช่องด้านล่างแทน';
+    }
+    drop.classList.remove('is-busy');
+  }
+}
+
+function resizeImage(file, max, q) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const sc = Math.min(1, max / Math.max(img.width, img.height));
+      const cv = document.createElement('canvas');
+      cv.width = Math.max(1, Math.round(img.width * sc));
+      cv.height = Math.max(1, Math.round(img.height * sc));
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      URL.revokeObjectURL(url);
+      resolve(cv.toDataURL('image/jpeg', q));
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+async function moveCard(id, dir) {
+  try { await apiCall('moveCard', { id, dir }, S.token); renderView(); }
+  catch (e) { fail(e); }
+}
+async function toggleCard(id) {
+  const c = S.cards.find(x => String(x.id) === String(id));
+  try { await apiCall('toggleCard', { id, active: !c.active }, S.token); renderView(); }
+  catch (e) { fail(e); }
+}
+function confirmDelCard(id) {
+  const c = S.cards.find(x => String(x.id) === String(id));
+  confirmBox(`ลบการ์ด “${esc(c.title)}” ออกจากระบบ? (ไฟล์รูปใน Drive จะไม่ถูกลบ)`, async () => {
+    try { await apiCall('deleteCard', { id }, S.token); toast('ลบการ์ดแล้ว', 'ok'); renderView(); }
+    catch (e) { fail(e); }
+  });
+}
+
+async function viewUsers() {
+  const r = await apiCall('listUsers', {}, S.token);
+  S.users = r.users;
+  $('#aView').innerHTML = `
+    <div class="viewhead">
+      <p>ADMIN ควบคุมได้ทุกส่วน · EDITOR แก้เนื้อหาได้ · VIEWER ดูอย่างเดียว</p>
+      <button class="btn btn--primary" data-act="user-new"><i data-lucide="plus"></i> เพิ่มผู้ใช้</button>
+    </div>
+    <div class="rows">${S.users.map(u => `
+      <div class="row row--user">
+        <div class="row__info">
+          <strong>${esc(u.name)} <span class="row__mail">${esc(u.email)}</span></strong>
+          <span class="row__sub">เข้าใช้ล่าสุด: ${fmt(u.lastLogin)}</span>
+        </div>
+        <div class="row__tags">
+          <span class="badge badge--${u.role.toLowerCase()}">${roleLabel(u.role)}</span>
+          <span class="badge ${u.status === 'ACTIVE' ? 'badge--on' : 'badge--off'}">${u.status === 'ACTIVE' ? 'ใช้งาน' : 'ระงับ'}</span>
+        </div>
+        <div class="row__act">
+          <button class="btn btn--icon" data-act="user-edit" data-id="${u.id}" title="แก้ไข / เปลี่ยนรหัส"><i data-lucide="pencil"></i></button>
+          ${u.email !== S.user.email
+            ? `<button class="btn btn--icon btn--danger" data-act="user-del" data-id="${u.id}" title="ลบบัญชี"><i data-lucide="trash-2"></i></button>`
+            : `<span class="row__me">คุณ</span>`}
+        </div>
+      </div>`).join('')}</div>`;
+}
+
+function openUserModal(u) {
+  modal(`
+    <h3 class="modal__h">${u ? 'แก้ไขผู้ใช้' : 'เพิ่มผู้ใช้ใหม่'}</h3>
+    <form id="userForm">
+      <div class="fieldgrid">
+        <label>ชื่อ-นามสกุล *<input name="name" required value="${esc(u?.name || '')}"></label>
+        <label>อีเมล *<input name="email" type="email" required value="${esc(u?.email || '')}" ${u ? 'readonly class="ro"' : ''}></label>
+      </div>
+      <div class="fieldgrid">
+        <label>ระดับสิทธิ์
+          <select name="role">
+            <option value="VIEWER">ผู้ชม (ดูอย่างเดียว)</option>
+            <option value="EDITOR">ผู้จักการเนื้อหา</option>
+            <option value="ADMIN">ผู้ดูแลระบบ</option>
+          </select></label>
+        <label>สถานะ
+          <select name="status">
+            <option value="ACTIVE">ใช้งานปกติ</option>
+            <option value="SUSPENDED">ระงับการใช้งาน</option>
+          </select></label>
+      </div>
+      <label>${u ? 'รหัสผ่านใหม่ (เว้นว่าง = ใช้รหัสเดิม)' : 'รหัสผ่าน *'}
+        <input name="password" type="text" ${u ? '' : 'required'} minlength="4"
+               placeholder="ตัวอักษรหรือตัวเลข อย่างน้อย 4 ตัว">
+      </label>
+      <div class="modal__act">
+        <button type="button" class="btn" data-close>ยกเลิก</button>
+        <button class="btn btn--primary" type="submit">บันทึกผู้ใช้</button>
+      </div>
+    </form>`);
+  const f = $('#userForm');
+  f.elements.role.value = u ? u.role : 'VIEWER';
+  f.elements.status.value = u ? u.status : 'ACTIVE';
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const fd = new FormData(f);
+    try {
+      await apiCall('saveUser', {
+        id: u ? u.id : undefined,
+        name: String(fd.get('name')).trim(),
+        email: String(fd.get('email')).trim().toLowerCase(),
+        role: fd.get('role'),
+        status: fd.get('status'),
+        password: String(fd.get('password') || ''),
+      }, S.token);
+      closeModal();
+      toast('บันทึกผู้ใช้เรียบร้อย', 'ok');
+      renderView();
+    } catch (err) { fail(err); }
+  });
+}
+
+function confirmDelUser(id) {
+  const u = S.users.find(x => String(x.id) === String(id));
+  confirmBox(`ลบบัญชี ${esc(u.email)} ออกจากระบบ?`, async () => {
+    try { await apiCall('deleteUser', { id }, S.token); toast('ลบบัญชีแล้ว', 'ok'); renderView(); }
+    catch (e) { fail(e); }
+  });
+}
+
+async function viewSettings() {
+  const r = await apiCall('getSettings', {}, S.token);
+  const s = r.settings;
+  const can = RANK[S.user.role] >= RANK.ADMIN;
+  $('#aView').innerHTML = `
+    <p class="hint">ข้อความเหล่านี้แสดงบนหน้าแรก — ${can ? 'คุณสามารถแก้ไขได้' : 'เฉพาะผู้ดูแล (ADMIN) ที่แก้ไขได้'}</p>
+    <form id="setForm" class="panel" style="margin-top:0">
+      ${SETTING_FIELDS.map(([k, l, t]) => `
+        <label>${l}
+          ${t === 'textarea'
+            ? `<textarea name="${k}" rows="4" ${can ? '' : 'disabled'}>${esc(s[k] || '')}</textarea>`
+            : `<input name="${k}" value="${esc(s[k] || '')}" ${can ? '' : 'disabled'}>`}
+        </label>`).join('')}
+      ${can ? `<button class="btn btn--primary" type="submit"><i data-lucide="save"></i> บันทึกการตั้งค่า</button>` : ''}
+    </form>`;
+  if (can) $('#setForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const f = e.target, payload = {};
+    SETTING_FIELDS.forEach(([k]) => payload[k] = f.elements[k].value);
+    try {
+      await apiCall('saveSettings', payload, S.token);
+      toast('บันทึกการตั้งค่าเรียบร้อย (หน้าเว็บจะใช้ค่าใหม่เมื่อรีเฟรช)', 'ok');
+    } catch (err) { fail(err); }
+  });
+}
+
+/* โมดัล / Toast / ผู้ช่วย */
+function modal(html) {
+  $('#modalBox').innerHTML = html;
+  $('#modalBack').hidden = false;
+  lucide.createIcons();
+}
+function closeModal() { $('#modalBack').hidden = true; }
+function confirmBox(msg, onYes) {
+  modal(`<h3 class="modal__h">ยืนยันการทำรายการ</h3>
+    <p class="modal__p">${msg}</p>
+    <div class="modal__act">
+      <button class="btn" data-close>ยกเลิก</button>
+      <button class="btn btn--danger" id="cfmYes">ยืนยัน</button>
+    </div>`);
+  $('#cfmYes').addEventListener('click', () => { closeModal(); onYes(); });
+}
+function toast(msg, type = 'ok') {
+  const t = document.createElement('div');
+  t.className = 'toast toast--' + type;
+  t.innerHTML = `<i data-lucide="${type === 'ok' ? 'check' : 'alert-triangle'}"></i><span>${esc(msg)}</span>`;
+  $('#toasts').append(t);
+  lucide.createIcons();
+  setTimeout(() => t.remove(), 3400);
+}
+function fail(e) {
+  if (e.code === 'SESSION_EXPIRED') {
+    localStorage.removeItem(LS_KEY);
+    toast('เซสชันหมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง', 'bad');
+    setTimeout(() => { S.token = null; showLogin(); }, 900);
+  } else toast(e.message, 'bad');
+}
+async function logout() {
+  try { await apiCall('logout', {}, S.token); } catch (e) {}
+  localStorage.removeItem(LS_KEY);
+  S.token = null; S.user = null;
+  $('#aApp').hidden = true;
+  location.hash = '';
+}
+
+function bindAdminGlobal() {
+  $('#aLoginForm').addEventListener('submit', onLogin);
+  $('#aLogoutBtn').addEventListener('click', logout);
+  $('#modalBack').addEventListener('click', e => {
+    if (e.target.id === 'modalBack') closeModal();
+  });
+  document.addEventListener('click', e => {
+    if (e.target.closest('[data-close]')) { closeModal(); return; }
+    const t = e.target.closest('[data-act]');
+    if (!t) return;
+    e.preventDefault();
+    const act = t.dataset.act, id = t.dataset.id;
+    if (act === 'nav')        { S.view = id; renderView(); }
+    if (act === 'card-new')   openCardModal(null);
+    if (act === 'card-edit')  openCardModal(S.cards.find(c => String(c.id) === String(id)));
+    if (act === 'card-up')    moveCard(id, 'up');
+    if (act === 'card-down')  moveCard(id, 'down');
+    if (act === 'card-toggle') toggleCard(id);
+    if (act === 'card-del')   confirmDelCard(id);
+    if (act === 'user-new')   openUserModal(null);
+    if (act === 'user-edit')  openUserModal(S.users.find(u => String(u.id) === String(id)));
+    if (act === 'user-del')   confirmDelUser(id);
+  });
+}
+
+/* =====================================================
+   เริ่มการทำงาน
+   ===================================================== */
+(function boot() {
+  $('#year').textContent = new Date().getFullYear();
+  lucide.createIcons();
+  interactions();
+  if (isMockMode()) $('#mockbar').hidden = false;
+  loadPublic();
+  addEventListener('hashchange', onHash);
+  if (location.hash === '#admin') openAdmin();
+})();
+</script>
 </body>
 </html>
