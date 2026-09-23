@@ -23,12 +23,8 @@
   --font:'Anuphan','Segoe UI',sans-serif;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:76px}
-body{margin:0;font-family:var(--font);color:var(--ink);background:var(--paper);line-height:1.6}
-img{max-width:100%}
-a{color:inherit}
-h1,h2,h3,h4{line-height:1.2;margin:0}
-.wrap{width:min(1180px,calc(100% - 44px));margin:0 auto}
+/* สำคัญ: บังคับให้คำสั่งซ่อน (hidden) ทำงานเสมอ — แก้ปัญหากล่องเส้นขาวค้างกลางจอ */
+[hidden]{display:none!important}
 
 /* องค์ประกอบค่อย ๆ โผล่ */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
@@ -37,12 +33,11 @@ h1,h2,h3,h4{line-height:1.2;margin:0}
 /* เส้นความคืบหน้าการอ่าน */
 .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--crimson);z-index:170}
 
-/* ---------- แถบนำทางองค์กร ---------- */
+/* ---------- แถบนำทางองค์กร (มีตราสาขาแบบ interactive) ---------- */
 .nav{position:sticky;top:0;z-index:60;background:rgba(245,240,228,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1.5px solid var(--ink)}
 .nav.scrolled{box-shadow:0 5px 0 rgba(34,27,21,.09)}
-.nav__in{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:9px 0}
-.nav__brand{display:flex;gap:11px;align-items:center;text-decoration:none;min-width:0}
-.nav__mark{display:grid;place-items:center;width:42px;height:42px;background:var(--crimson);color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.04em;flex:0 0 auto}
+.nav__in{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:8px 0}
+.nav__brand{display:flex;gap:12px;align-items:center;text-decoration:none;min-width:0}
 .nav__name{min-width:0}
 .nav__name strong{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav__name small{display:block;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -57,26 +52,27 @@ h1,h2,h3,h4{line-height:1.2;margin:0}
 .nav__burger{display:none;place-items:center;width:42px;height:42px;border:1.5px solid var(--ink);background:var(--card);cursor:pointer;padding:0}
 .nav__burger svg{width:19px;height:19px}
 
-/* ---------- หัวเว็บ (Hero) ---------- */
-.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--crimson);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 14px}
-.eyebrow::before{content:'';width:36px;height:2px;background:var(--crimson)}
-.hero{background:var(--paper);background-image:linear-gradient(var(--gridc) 1px,transparent 1px),linear-gradient(90deg,var(--gridc) 1px,transparent 1px);background-size:46px 46px;border-bottom:3px solid var(--ink)}
-.hero__in{display:flex;justify-content:space-between;align-items:center;gap:40px;padding:66px 0 58px}
-.hero__text{max-width:640px}
-.hero__title{font-size:clamp(42px,7.4vw,80px);font-weight:700;letter-spacing:-.028em;line-height:1.03}
-.hero__title em{font-style:normal;color:var(--crimson)}
-.hero__sub{margin:18px 0 16px;font-size:clamp(11px,1.6vw,14px);font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
-.hero__tag{margin:0;font-size:17px;max-width:540px}
-.hero__cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
-/* ตราประทับลอยบนพื้นกริด (ไม่มีกล่อง/เงา) */
-.hero__panel{flex:0 0 auto;padding:0;margin:0}
-.seal{width:196px;height:196px;color:var(--crimson);display:block;margin:0 auto}
-.seal__spin{transform-box:view-box;transform-origin:50% 50%;animation:spin 36s linear infinite}
+/* ---------- ตราประจำสาขา (หมุนโต้ตอบ — ขับด้วย JS) ---------- */
+.seal{color:var(--crimson);display:block}
+.seal--nav{width:46px;height:46px;flex:0 0 auto;cursor:pointer}
+.seal__spin{transform-box:view-box;transform-origin:50% 50%}
 .seal__outer{fill:none;stroke:currentColor;stroke-width:2.5}
 .seal__inner{fill:none;stroke:currentColor;stroke-width:1.5}
 .seal__text{font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:2.6px;fill:currentColor}
 .seal__mono{font-family:var(--font);font-size:30px;font-weight:700;fill:var(--ink)}
 .seal__yr{font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:2px;fill:var(--muted)}
+
+/* ---------- หัวเว็บ (Hero) ---------- */
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--crimson);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 14px}
+.eyebrow::before{content:'';width:36px;height:2px;background:var(--crimson)}
+.hero{background:var(--paper);background-image:linear-gradient(var(--gridc) 1px,transparent 1px),linear-gradient(90deg,var(--gridc) 1px,transparent 1px);background-size:46px 46px;border-bottom:3px solid var(--ink)}
+.hero__in{padding:66px 0 58px}
+.hero__text{max-width:760px}
+.hero__title{font-size:clamp(42px,7.4vw,80px);font-weight:700;letter-spacing:-.028em;line-height:1.03}
+.hero__title em{font-style:normal;color:var(--crimson)}
+.hero__sub{margin:18px 0 16px;font-size:clamp(11px,1.6vw,14px);font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.hero__tag{margin:0;font-size:17px;max-width:560px}
+.hero__cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ---------- แถบข้อมูลองค์กร ---------- */
@@ -285,6 +281,7 @@ textarea{resize:vertical}
 .picker__del svg{width:14px;height:14px}
 .picker__del:hover{background:var(--bad);border-color:var(--bad);color:#fff}
 
+/* โมดัล — แสดงเฉพาะเมื่อระบบเรียกใช้เท่านั้น */
 .modalback{position:fixed;inset:0;background:rgba(28,22,16,.55);display:grid;place-items:center;z-index:200;padding:18px}
 .modal{width:min(640px,100%);max-height:90vh;overflow:auto;background:var(--paper);border:1.5px solid var(--ink);box-shadow:10px 10px 0 var(--ink);padding:26px}
 .modal__h{font-size:19px;margin-bottom:18px}
@@ -315,10 +312,8 @@ textarea{resize:vertical}
 }
 @media (max-width:720px){
   .cards>*{grid-column:span 12}
-  .hero__in{padding:44px 0 40px;flex-direction:column;align-items:flex-start;gap:30px}
-  .hero__cta{margin-top:24px}
-  .hero__panel{align-self:flex-start}
-  .seal{width:150px;height:150px}
+  .hero__in{padding:44px 0 40px}
+  .seal--nav{width:40px;height:40px}
   .orgstrip__in{grid-template-columns:1fr 1fr}
   .org{border-left:0;border-top:1px solid rgba(245,240,228,.22);padding:12px 18px}
   .org:nth-child(-n+2){border-top:0}
@@ -348,8 +343,21 @@ textarea{resize:vertical}
 <!-- ═══════════ ส่วนเว็บสาธารณะ (หน้าแรก) ═══════════ -->
 <header class="nav" id="nav">
   <div class="wrap nav__in">
-    <a class="nav__brand" href="#top">
-      <span class="nav__mark">ETC</span>
+    <a class="nav__brand" href="#top" id="sealBtn" title="ตราประจำสาขา — คลิกเพื่อกลับขึ้นด้านบน">
+      <svg class="seal seal--nav" viewBox="0 0 200 200" role="img" aria-label="ตราประจำสาขาวิชา">
+        <g class="seal__spin">
+          <defs>
+            <path id="sealRing" d="M 100,100 m -70,0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0"/>
+          </defs>
+          <circle cx="100" cy="100" r="97" class="seal__outer"/>
+          <circle cx="100" cy="100" r="52" class="seal__inner"/>
+          <text class="seal__text">
+            <textPath href="#sealRing">FACULTY OF EDUCATION · MAHASARAKHAM UNIVERSITY · THAILAND ·</textPath>
+          </text>
+        </g>
+        <text x="100" y="94" text-anchor="middle" class="seal__mono">ETC</text>
+        <text x="100" y="118" text-anchor="middle" class="seal__yr">SINCE 1968</text>
+      </svg>
       <span class="nav__name">
         <strong>เทคโนโลยีและสื่อสารการศึกษา</strong>
         <small>คณะศึกษาศาสตร์ · มหาวิทยาลัยมหาสารคาม</small>
@@ -381,26 +389,11 @@ textarea{resize:vertical}
       <p class="hero__tag rv" style="transition-delay:.2s" id="mTag">
         ผลิตครูและนักออกแบบการเรียนรู้ สำหรับโลกยุคดิจิทัล
       </p>
+      <!-- ปุ่มนำทางใต้คำโปรย (ถ้าไม่ต้องการ ลบบล็อก div นี้ทั้งก้อนได้เลย) -->
       <div class="hero__cta rv" style="transition-delay:.26s">
         <a class="btn btn--primary" href="#infographics">สำรวจสารสนเทศ <i data-lucide="arrow-down"></i></a>
         <a class="btn" href="#contact">ติดต่อสาขา <i data-lucide="phone"></i></a>
       </div>
-    </div>
-    <div class="hero__panel rv" style="transition-delay:.3s">
-      <svg class="seal" viewBox="0 0 200 200" role="img" aria-label="ตราประจำสาขาวิชา">
-        <g class="seal__spin">
-          <defs>
-            <path id="sealRing" d="M 100,100 m -70,0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0"/>
-          </defs>
-          <circle cx="100" cy="100" r="97" class="seal__outer"/>
-          <circle cx="100" cy="100" r="52" class="seal__inner"/>
-          <text class="seal__text">
-            <textPath href="#sealRing">FACULTY OF EDUCATION · MAHASARAKHAM UNIVERSITY · THAILAND ·</textPath>
-          </text>
-        </g>
-        <text x="100" y="94" text-anchor="middle" class="seal__mono">ETC</text>
-        <text x="100" y="118" text-anchor="middle" class="seal__yr">SINCE 1968</text>
-      </svg>
     </div>
   </div>
 </header>
@@ -568,7 +561,7 @@ textarea{resize:vertical}
    'https://script.google.com/macros/s/AKfy.../exec'
    ถ้ายังไม่ใส่ ระบบจะทำงานใน "โหมดตัวอย่าง" (Mock data)
    ===================================================== */
-const API_URL = 'https://script.google.com/macros/library/d/1QWeB3uTTTr8pngQLqT2rq84FldP3PhUoIZBXa0sRvEWz5xI_zw87vcEK/4';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzbA1Ik1pT86zz_4QSNg4o8RKk5zKv1n9xghVVe0XndJ0x9c11tAa3eOnrdHU08nloFgw/exec';
 
 const $ = (s, p = document) => p.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g,
@@ -776,6 +769,37 @@ function watchReveals() {
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.rv:not(.in)').forEach(x => io.observe(x));
+}
+
+/* ---------- ตราสาขาแบบ interactive (ในแถบนำทาง) ----------
+   หมุนเองช้า ๆ · เร็วขึ้นเมื่อชี้ · หมุนตามการเลื่อนหน้า ·
+   คลิก = หมุนพุ่งแรง 1 จังหวะ พร้อมกลับขึ้นบนสุด            */
+function sealInit() {
+  const btn = $('#sealBtn');
+  const spin = document.querySelector('.seal--nav .seal__spin');
+  if (!btn || !spin) return;
+  let angle = 0, boost = 0, hover = false, lastY = scrollY, lastT = performance.now();
+
+  btn.addEventListener('mouseenter', () => hover = true);
+  btn.addEventListener('mouseleave', () => hover = false);
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    boost += 900;                                  // หมุนพุ่งแรงหนึ่งจังหวะ
+    scrollTo({ top: 0, behavior: 'smooth' });      // แล้วกลับขึ้นบนสุด
+  });
+
+  (function loop(t) {
+    const dt = Math.min(0.05, (t - lastT) / 1000);
+    lastT = t;
+    const dy = scrollY - lastY;
+    lastY = scrollY;
+    angle += (hover ? 160 : 9) * dt    /* หมุนเอง (ชี้แล้วเร็วขึ้น) */
+           + dy * 0.35                 /* หมุนตามการเลื่อนหน้า */
+           + boost * dt;               /* แรงพุ่งจากการคลิก */
+    boost *= Math.exp(-2.2 * dt);      // แรงพุ่งค่อย ๆ คลายตัว
+    spin.style.transform = 'rotate(' + (angle % 360) + 'deg)';
+    requestAnimationFrame(loop);
+  })(lastT);
 }
 
 /* อินเทอร์แอกชันหน้าเว็บ: เมนูมือถือ / scroll / ปุ่มขึ้นบน */
@@ -1340,6 +1364,7 @@ function bindAdminGlobal() {
   $('#year').textContent = new Date().getFullYear();
   lucide.createIcons();
   interactions();
+  sealInit();
   if (isMockMode()) $('#mockbar').hidden = false;
   loadPublic();
   addEventListener('hashchange', onHash);
