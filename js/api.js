@@ -4,7 +4,7 @@
    ตัวอย่าง: 'https://script.google.com/macros/s/AKfy.../exec'
    หากยังไม่ใส่ ระบบจะทำงานใน "โหมดตัวอย่าง" (Mock data)
    ===================================================== */
-const API_URL = 'REPLACE_WITH_YOUR_WEB_APP_URL';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzbA1Ik1pT86zz_4QSNg4o8RKk5zKv1n9xghVVe0XndJ0x9c11tAa3eOnrdHU08nloFgw/exec';
 
 /* ตรวจว่าอยู่ในโหมดตัวอย่างหรือไม่ */
 function isMockMode() { return !/^https:\/\/script\.google/.test(API_URL); }
