@@ -3,119 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา · คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</title>
+<title>เข้าสู่ระบบผู้ดูแล · สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%238E2130'/%3E%3Ctext x='32' y='40' font-family='Arial' font-size='17' font-weight='bold' fill='%23F5F0E4' text-anchor='middle'%3ETEC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="admin">
 
-<div class="topbar">
-  <div class="wrap topbar__in">
-    <span class="topbar__uni">มหาวิทยาลัยมหาสารคาม · คณะศึกษาศาสตร์</span>
-    <nav class="topbar__links">
-      <a href="https://www.msu.ac.th" target="_blank" rel="noopener">เว็บมหาวิทยาลัย</a>
-      <a href="admin.html" class="topbar__admin">สำหรับผู้ดูแลระบบ <i data-lucide="lock"></i></a>
-    </nav>
-  </div>
-</div>
-
-<header class="masthead">
-  <div class="wrap masthead__in">
-    <div class="masthead__text">
-      <p class="eyebrow rise">สาขาวิชา · Department</p>
-      <h1 class="masthead__title rise" style="animation-delay:.08s">
-        เทคโนโลยีและ<br><em>สื่อสารการศึกษา</em>
-      </h1>
-      <p class="masthead__sub rise" style="animation-delay:.16s">
-        Educational Technology and Communications
-      </p>
-      <p class="masthead__tag rise" style="animation-delay:.22s" id="mTag">
-        ผลิตครูและนักออกแบบการเรียนรู้ สำหรับโลกยุคดิจิทัล
-      </p>
-    </div>
-    <div class="masthead__seal rise" style="animation-delay:.3s" aria-hidden="true">
-      <svg class="seal" viewBox="0 0 200 200">
-        <g class="seal__spin">
-          <defs>
-            <path id="sealRing" d="M 100,100 m -70,0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0"/>
-          </defs>
-          <circle cx="100" cy="100" r="97" class="seal__outer"/>
-          <circle cx="100" cy="100" r="52" class="seal__inner"/>
-          <text class="seal__text">
-            <textPath href="#sealRing">FACULTY OF EDUCATION · MAHASARAKHAM UNIVERSITY · THAILAND ·</textPath>
-          </text>
-        </g>
-        <text x="100" y="94" text-anchor="middle" class="seal__mono">ETC</text>
-        <text x="100" y="118" text-anchor="middle" class="seal__yr">SINCE 1968</text>
-      </svg>
-    </div>
-  </div>
-</header>
-
-<div class="ticker" id="ticker" hidden>
-  <span class="ticker__label"><i data-lucide="megaphone"></i> ประกาศ</span>
-  <div class="ticker__viewport"><div class="ticker__inner" id="tickerInner"></div></div>
-</div>
-
-<main class="wrap">
-  <section class="section">
-    <header class="sec-head">
-      <span class="sec-no">01</span>
-      <div class="sec-head__text">
-        <h2>ประตูสารสนเทศ</h2>
-        <p>แตะภาพ Infographic เพื่อเข้าสู่หน้าข้อมูลที่กำหนดไว้</p>
+<!-- หน้าล็อกอิน -->
+<div class="auth" id="authView">
+  <div class="auth__panel">
+    <div class="brand">
+      <span class="brand__mark">ETC</span>
+      <div>
+        <strong>ระบบจัดการเว็บไซต์</strong>
+        <span>สาขาวิชาฯ คณะศึกษาศาสตร์ ม.มหาสารคาม</span>
       </div>
-      <span class="sec-head__rule"></span>
-    </header>
-    <div class="cards" id="cards">
-      <div class="sk"></div><div class="sk"></div><div class="sk"></div>
     </div>
-  </section>
-
-  <section class="about">
-    <div class="about__left">
-      <span class="sec-no">02</span>
-      <h2>รู้จักสาขาของเรา</h2>
-    </div>
-    <div class="about__right" id="aboutText">
-      <p>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา มุ่งผลิตครูและบุคลากรทางการศึกษา
-      ที่ออกแบบการเรียนรู้ด้วยสื่อและเทคโนโลยีอย่างสร้างสรรค์</p>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="wrap footer__in">
-    <div class="footer__col footer__brand">
-      <strong>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา</strong>
-      <span>คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</span>
-      <span class="footer__addr">เลขที่ 41 ถ.ขาวเงียบ ต.ตลาด อ.เมือง จ.มหาสารคาม 44000</span>
-    </div>
-    <div class="footer__col">
-      <h4>ติดต่อสาขา</h4>
-      <p id="fPhone" hidden>โทร <span id="fPhoneV"></span></p>
-      <p id="fEmail" hidden><span id="fEmailV"></span></p>
-    </div>
-    <div class="footer__col footer__links">
-      <h4>ลิงก์ที่เกี่ยวข้อง</h4>
-      <a href="https://www.msu.ac.th" target="_blank" rel="noopener">มหาวิทยาลัยมหาสารคาม</a>
-      <a href="admin.html">เข้าสู่ระบบผู้ดูแล</a>
-    </div>
+    <h1>เข้าสู่ระบบผู้ดูแล</h1>
+    <p class="auth__lead">จัดการการ์ด Infographic ผู้ใช้ และตั้งค่าหน้าเว็บไซต์</p>
+    <form id="loginForm">
+      <label>อีเมล<input type="email" id="loginEmail" required autocomplete="username"></label>
+      <label>รหัสผ่าน<input type="password" id="loginPass" required autocomplete="current-password"></label>
+      <p class="form-err" id="loginErr" hidden></p>
+      <button class="btn btn--primary btn--block" id="loginBtn" type="submit">
+        เข้าสู่ระบบ <i data-lucide="log-in"></i>
+      </button>
+    </form>
+    <p class="auth__demo" id="authDemo" hidden>
+      โหมดตัวอย่าง — ลอง: <code>admin@msu.ac.th</code> / <code>etc1234</code>
+    </p>
+    <a href="index.html" class="auth__back">← กลับหน้าเว็บไซต์</a>
   </div>
-  <div class="wrap footer__base">
-    <span>© <span id="year"></span> สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</span>
-  </div>
-</footer>
-
-<div class="mockbar" id="mockbar" hidden>
-  โหมดตัวอย่าง (ข้อมูลจำลอง) — ยังไม่ได้เชื่อมต่อ Google Sheet · วิธีเชื่อมต่อดูคู่มือติดตั้ง
 </div>
+
+<!-- โครงหลังบ้าน -->
+<div class="shell" id="appView" hidden>
+  <aside class="side">
+    <div class="brand side__brand">
+      <span class="brand__mark">ETC</span>
+      <div><strong>ระบบจัดการเว็บ</strong></div>
+    </div>
+    <nav class="side__nav" id="nav"></nav>
+    <div class="side__user">
+      <strong id="uName"></strong>
+      <span id="uRole"></span>
+      <button class="btn btn--ghost btn--sm" id="logoutBtn">
+        <i data-lucide="log-out"></i> ออกจากระบบ
+      </button>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar2">
+      <h2 id="viewTitle">ภาพรวมระบบ</h2>
+      <a class="btn btn--sm" href="index.html" target="_blank" rel="noopener">
+        <i data-lucide="external-link"></i> ดูหน้าเว็บจริง
+      </a>
+    </header>
+    <div class="view" id="view"></div>
+  </div>
+</div>
+
+<!-- โมดัล + Toast + แถบโหมดตัวอย่าง -->
+<div class="modalback" id="modalBack" hidden><div class="modal" id="modalBox"></div></div>
+<div class="toasts" id="toasts"></div>
+<div class="mockbar" id="mockbar" hidden>โหมดตัวอย่าง — ข้อมูลที่แก้จะหายเมื่อรีเฟรช</div>
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="js/api.js"></script>
-<script src="js/main.js"></script>
+<script src="js/admin.js"></script>
 </body>
 </html>
