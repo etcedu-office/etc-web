@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ภาควิชาเทคโนโลยีและสื่อสารการศึกษา · คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</title>
-<meta name="description" content="ภาควิชาวิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม">
+<meta name="description" content="ประตูสารสนเทศอย่างเป็นทางการ ภาควิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%238E2130'/%3E%3Ctext x='32' y='40' font-family='Arial' font-size='17' font-weight='bold' fill='%23F5F0E4' text-anchor='middle'%3ETEC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,7 @@
   --font:'Anuphan','Segoe UI',sans-serif;
 }
 *{box-sizing:border-box}
-/* สำคัญ: บังคับให้คำสั่งซ่อน (hidden) ทำงานเสมอ — แก้ปัญหากล่องเส้นขาวค้างกลางจอ */
+/* สำคัญ: บังคับให้คำสั่งซ่อน (hidden) ทำงานเสมอ — กันกล่องค้างกลางจอ */
 [hidden]{display:none!important}
 
 /* องค์ประกอบค่อย ๆ โผล่ */
@@ -33,7 +33,7 @@
 /* เส้นความคืบหน้าการอ่าน */
 .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--crimson);z-index:170}
 
-/* ---------- แถบนำทางองค์กร (มีตราสาขาแบบ interactive) ---------- */
+/* ---------- แถบนำทางองค์กร ---------- */
 .nav{position:sticky;top:0;z-index:60;background:rgba(245,240,228,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1.5px solid var(--ink)}
 .nav.scrolled{box-shadow:0 5px 0 rgba(34,27,21,.09)}
 .nav__in{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:8px 0}
@@ -52,15 +52,9 @@
 .nav__burger{display:none;place-items:center;width:42px;height:42px;border:1.5px solid var(--ink);background:var(--card);cursor:pointer;padding:0}
 .nav__burger svg{width:19px;height:19px}
 
-/* ---------- ตราประจำสาขา (หมุนโต้ตอบ — ขับด้วย JS) ---------- */
-.seal{color:var(--crimson);display:block}
-.seal--nav{width:46px;height:46px;flex:0 0 auto;cursor:pointer}
-.seal__spin{transform-box:view-box;transform-origin:50% 50%}
-.seal__outer{fill:none;stroke:currentColor;stroke-width:2.5}
-.seal__inner{fill:none;stroke:currentColor;stroke-width:1.5}
-.seal__text{font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:2.6px;fill:currentColor}
-.seal__mono{font-family:var(--font);font-size:30px;font-weight:700;fill:var(--ink)}
-.seal__yr{font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:2px;fill:var(--muted)}
+/* ---------- ตรา/โลโก้สาขา (รูปภาพจาก URL — แก้ที่ src ของ #navLogo) ---------- */
+.nav__logo{width:46px;height:46px;flex:0 0 auto;cursor:pointer;object-fit:contain;background:var(--card);border:1.5px solid var(--ink);padding:3px;transform-origin:50% 15%}
+.nav__mark-fb{display:grid;place-items:center;width:46px;height:46px;flex:0 0 auto;background:var(--crimson);color:#fff;font-weight:700;font-size:12.5px}
 
 /* ---------- หัวเว็บ (Hero) ---------- */
 .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--crimson);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 14px}
@@ -102,7 +96,7 @@
 .sec-head__text p{margin:2px 0 0;color:var(--muted);font-size:14.5px}
 .sec-head__rule{flex:1;border-bottom:1px dotted var(--line-c);margin-bottom:6px}
 
-/* ---------- กริดการ์ด Infographic ---------- */
+/* ---------- กริดการ์ด Infographic (จัดกึ่งกลางหน้าเว็บ) ---------- */
 .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;grid-auto-flow:dense;justify-content:center}
 .card{grid-column:span 4;position:relative;display:flex;flex-direction:column;background:var(--card);border:1.5px solid var(--ink);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);transition:transform .18s ease,box-shadow .18s ease,opacity .7s ease}
 .card--wide{grid-column:span 8}
@@ -313,7 +307,7 @@ textarea{resize:vertical}
 @media (max-width:720px){
   .cards>*{grid-column:span 12}
   .hero__in{padding:44px 0 40px}
-  .seal--nav{width:40px;height:40px}
+  .nav__logo,.nav__mark-fb{width:40px;height:40px}
   .orgstrip__in{grid-template-columns:1fr 1fr}
   .org{border-left:0;border-top:1px solid rgba(245,240,228,.22);padding:12px 18px}
   .org:nth-child(-n+2){border-top:0}
@@ -344,31 +338,19 @@ textarea{resize:vertical}
 <header class="nav" id="nav">
   <div class="wrap nav__in">
     <a class="nav__brand" href="#top" id="sealBtn" title="ตราประจำสาขา — คลิกเพื่อกลับขึ้นด้านบน">
-      <svg class="seal seal--nav" viewBox="0 0 200 200" role="img" aria-label="ตราประจำสาขาวิชา">
-        <g class="seal__spin">
-          <defs>
-            <path id="sealRing" d="M 100,100 m -70,0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0"/>
-          </defs>
-          <circle cx="100" cy="100" r="97" class="seal__outer"/>
-          <circle cx="100" cy="100" r="52" class="seal__inner"/>
-          <text class="seal__text">
-            <textPath href="#sealRing">FACULTY OF EDUCATION · MAHASARAKHAM UNIVERSITY · THAILAND ·</textPath>
-          </text>
-        </g>
-        <text x="100" y="94" text-anchor="middle" class="seal__mono">ETC</text>
-        <text x="100" y="118" text-anchor="middle" class="seal__yr">SINCE 1968</text>
-      </svg>
+      <!-- ▼▼ วาง URL รูปตรา/โลโก้ของสาขาที่นี่ (.jpg .png .svg .webp ได้หมด) ▼▼ -->
+      <img class="nav__logo" id="navLogo" src="https://avatars.githubusercontent.com/u/323421596?s=96&v=4" alt="ตราประจำสาขาวิชา">
       <span class="nav__name">
         <strong>เทคโนโลยีและสื่อสารการศึกษา</strong>
         <small>คณะศึกษาศาสตร์ · มหาวิทยาลัยมหาสารคาม</small>
       </span>
     </a>
     <nav class="nav__menu" id="navMenu">
-      <a href="#infographics">ข้อมูลสาขา</a>
+      <a href="#infographics">สารสนเทศ</a>
       <a href="#about">รู้จักสาขา</a>
       <a href="#contact">ติดต่อสาขา</a>
-      <a href="https://edu.msu.ac.th" target="_blank" rel="noopener" class="nav__out">
-        เว็บคณะศึกษาศาสตร์<i data-lucide="arrow-up-right"></i>
+      <a href="https://www.msu.ac.th" target="_blank" rel="noopener" class="nav__out">
+        เว็บมหาวิทยาลัย <i data-lucide="arrow-up-right"></i>
       </a>
       <a href="#admin" class="nav__admin"><i data-lucide="lock"></i> ผู้ดูแลระบบ</a>
     </nav>
@@ -418,7 +400,7 @@ textarea{resize:vertical}
     <header class="sec-head rv">
       <span class="sec-no">01</span>
       <div class="sec-head__text">
-        <h2>ETC MSU</h2>
+        <h2>ประตูสารสนเทศ</h2>
         <p>แตะภาพ Infographic เพื่อเข้าสู่หน้าข้อมูลที่กำหนดไว้</p>
       </div>
       <span class="sec-head__rule"></span>
@@ -467,7 +449,7 @@ textarea{resize:vertical}
           <span>คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</span>
         </div>
       </div>
-      <p class="footer__addr">เลขที่ 41 ถ.นครสวรรค์ ต.ตลาด อ.เมือง จ.มหาสารคาม 44000</p>
+      <p class="footer__addr">เลขที่ 41 ถ.ขาวเงียบ ต.ตลาด อ.เมือง จ.มหาสารคาม 44000</p>
     </div>
     <div class="footer__col">
       <h4>ติดต่อสาขา</h4>
@@ -478,7 +460,7 @@ textarea{resize:vertical}
     <div class="footer__col footer__links">
       <h4>ลิงก์ที่เกี่ยวข้อง</h4>
       <a href="https://www.msu.ac.th" target="_blank" rel="noopener">มหาวิทยาลัยมหาสารคาม</a>
-      <a href="#infographics">ETC MSU</a>
+      <a href="#infographics">ประตูสารสนเทศ</a>
       <a href="#about">รู้จักสาขา</a>
     </div>
     <div class="footer__col">
@@ -561,7 +543,7 @@ textarea{resize:vertical}
    'https://script.google.com/macros/s/AKfy.../exec'
    ถ้ายังไม่ใส่ ระบบจะทำงานใน "โหมดตัวอย่าง" (Mock data)
    ===================================================== */
-const API_URL = 'https://script.google.com/macros/s/AKfycbzbA1Ik1pT86zz_4QSNg4o8RKk5zKv1n9xghVVe0XndJ0x9c11tAa3eOnrdHU08nloFgw/exec';
+const API_URL = 'https://script.google.com/macros/library/d/1QWeB3uTTTr8pngQLqT2rq84FldP3PhUoIZBXa0sRvEWz5xI_zw87vcEK/4';
 
 const $ = (s, p = document) => p.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g,
@@ -771,33 +753,40 @@ function watchReveals() {
   document.querySelectorAll('.rv:not(.in)').forEach(x => io.observe(x));
 }
 
-/* ---------- ตราสาขาแบบ interactive (ในแถบนำทาง) ----------
-   หมุนเองช้า ๆ · เร็วขึ้นเมื่อชี้ · หมุนตามการเลื่อนหน้า ·
-   คลิก = หมุนพุ่งแรง 1 จังหวะ พร้อมกลับขึ้นบนสุด            */
+/* ---------- ตราสาขา (รูปจาก URL): โยกไหวแบบป้ายแขวน + คลิกกลับขึ้นบนสุด ---------- */
 function sealInit() {
   const btn = $('#sealBtn');
-  const spin = document.querySelector('.seal--nav .seal__spin');
-  if (!btn || !spin) return;
-  let angle = 0, boost = 0, hover = false, lastY = scrollY, lastT = performance.now();
+  const logo = $('#navLogo');
+  if (!btn || !logo) return;
 
+  let node = logo;
+  logo.addEventListener('error', () => {        // URL โหลดไม่ได้ → กล่อง ETC แทน
+    const fb = document.createElement('span');
+    fb.className = 'nav__mark-fb';
+    fb.textContent = 'ETC';
+    node = fb;
+    logo.replaceWith(fb);
+  });
+
+  let phase = 0, gust = 0, hover = false, lastY = scrollY, lastT = performance.now();
   btn.addEventListener('mouseenter', () => hover = true);
   btn.addEventListener('mouseleave', () => hover = false);
   btn.addEventListener('click', e => {
     e.preventDefault();
-    boost += 900;                                  // หมุนพุ่งแรงหนึ่งจังหวะ
-    scrollTo({ top: 0, behavior: 'smooth' });      // แล้วกลับขึ้นบนสุด
+    gust += 9;                                  // แกว่งพุ่งหนึ่งจังหวะ
+    scrollTo({ top: 0, behavior: 'smooth' });   // แล้วกลับขึ้นบนสุด
   });
 
   (function loop(t) {
     const dt = Math.min(0.05, (t - lastT) / 1000);
     lastT = t;
-    const dy = scrollY - lastY;
+    const dy = Math.abs(scrollY - lastY);
     lastY = scrollY;
-    angle += (hover ? 160 : 9) * dt    /* หมุนเอง (ชี้แล้วเร็วขึ้น) */
-           + dy * 0.35                 /* หมุนตามการเลื่อนหน้า */
-           + boost * dt;               /* แรงพุ่งจากการคลิก */
-    boost *= Math.exp(-2.2 * dt);      // แรงพุ่งค่อย ๆ คลายตัว
-    spin.style.transform = 'rotate(' + (angle % 360) + 'deg)';
+    gust = Math.min(9, gust + dy * 0.02);   // เลื่อนหน้า = ลมพัดเพิ่ม
+    gust *= Math.exp(-1.6 * dt);            // ค่อย ๆ สงบ
+    phase += dt * (hover ? 5 : 2);
+    const amp = (hover ? 3 : 1.6) + gust;
+    node.style.transform = 'rotate(' + (Math.sin(phase) * amp).toFixed(2) + 'deg)';
     requestAnimationFrame(loop);
   })(lastT);
 }
