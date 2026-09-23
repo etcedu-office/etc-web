@@ -3,46 +3,44 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ภาควิชาเทคโนโลยีและสื่อสารการศึกษา · คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</title>
-<meta name="description" content="ประตูสารสนเทศอย่างเป็นทางการ ภาควิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%238E2130'/%3E%3Ctext x='32' y='40' font-family='Arial' font-size='17' font-weight='bold' fill='%23F5F0E4' text-anchor='middle'%3ETEC%3C/text%3E%3C/svg%3E">
+<title>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา · คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</title>
+<meta name="description" content="ประตูสารสนเทศอย่างเป็นทางการ สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม">
+<meta name="theme-color" content="#a34120">
+<meta property="og:type" content="website">
+<meta property="og:title" content="สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา · คณะศึกษาศาสตร์ ม.มหาสารคาม">
+<meta property="og:description" content="ประตูสารสนเทศอย่างเป็นทางการของสาขาวิชา หลักสูตร · บุคลากร · ข่าวประกาศ · วิจัย · ติดต่อสาขา">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23A34120'/%3E%3Ctext x='32' y='40' font-family='Arial' font-size='17' font-weight='bold' fill='%23F3EAD9' text-anchor='middle'%3ETEC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* =====================================================
-   ETC Web Manager — สไตล์ทั้งระบบ (ฝังในไฟล์เดียว)
-   โทน: กระดาษครีม + หมึกเข้ม + แดงเลือดหมู (สี ม.มหาสารคาม)
+   ETC Web Manager — โทนสี: ครีมน้ำตาล → น้ำตาลเข้ม → แดงอิฐ
    ===================================================== */
 :root{
-  --ink:#221b15; --paper:#f5f0e4; --card:#fffdf7;
-  --crimson:#8e2130; --crimson-2:#6d1824;
-  --muted:#7d7367; --line-c:#d9d0bd; --gridc:rgba(34,27,21,.05);
-  --ok:#2f6b3a; --bad:#a02b1f;
+  --ink:#362318; --paper:#f3ead9; --card:#fdf8ee;
+  --crimson:#a34120; --crimson-2:#7e2f14;
+  --muted:#8a715b; --line-c:#dcccac; --gridc:rgba(54,35,24,.06);
+  --ok:#4a6b3a; --bad:#a34524;
   --shadow:6px 6px 0 var(--ink);
   --font:'Anuphan','Segoe UI',sans-serif;
 }
 *{box-sizing:border-box}
-/* สำคัญ: บังคับให้คำสั่งซ่อน (hidden) ทำงานเสมอ — กันกล่องค้างกลางจอ */
 [hidden]{display:none!important}
-
-/* องค์ประกอบค่อย ๆ โผล่ */
-.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1)}
 .rv.in{opacity:1;transform:none}
-
-/* เส้นความคืบหน้าการอ่าน */
 .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--crimson);z-index:170}
 
-/* ---------- แถบนำทางองค์กร ---------- */
-.nav{position:sticky;top:0;z-index:60;background:rgba(245,240,228,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1.5px solid var(--ink)}
-.nav.scrolled{box-shadow:0 5px 0 rgba(34,27,21,.09)}
-.nav__in{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:8px 0}
+/* ---------- แถบนำทาง ---------- */
+.nav{position:sticky;top:0;z-index:60;background:rgba(243,234,217,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1.5px solid var(--ink)}
+.nav.scrolled{box-shadow:0 5px 0 rgba(54,35,24,.09)}
+.nav__in{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:7px 0}
 .nav__brand{display:flex;gap:12px;align-items:center;text-decoration:none;min-width:0}
 .nav__name{min-width:0}
 .nav__name strong{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav__name small{display:block;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav__menu{display:flex;align-items:center;gap:2px}
-.nav__menu a{padding:8px 12px;font-size:14px;font-weight:500;text-decoration:none;display:inline-flex;gap:6px;align-items:center;border-bottom:2px solid transparent}
+.nav__menu a{padding:7px 12px;font-size:14px;font-weight:500;text-decoration:none;display:inline-flex;gap:6px;align-items:center;border-bottom:2px solid transparent}
 .nav__menu a svg{width:13px;height:13px}
 .nav__menu a:hover{border-bottom-color:var(--ink)}
 .nav__out{color:var(--muted)}
@@ -52,89 +50,89 @@
 .nav__burger{display:none;place-items:center;width:42px;height:42px;border:1.5px solid var(--ink);background:var(--card);cursor:pointer;padding:0}
 .nav__burger svg{width:19px;height:19px}
 
-/* ---------- ตรา/โลโก้สาขา (รูปภาพจาก URL — แก้ที่ src ของ #navLogo) ---------- */
+/* ---------- ตรา/โลโก้ (รูปจาก URL) ---------- */
 .nav__logo{width:46px;height:46px;flex:0 0 auto;cursor:pointer;object-fit:contain;background:var(--card);border:1.5px solid var(--ink);padding:3px;transform-origin:50% 15%}
 .nav__mark-fb{display:grid;place-items:center;width:46px;height:46px;flex:0 0 auto;background:var(--crimson);color:#fff;font-weight:700;font-size:12.5px}
 
-/* ---------- หัวเว็บ (Hero) ---------- */
-.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--crimson);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 14px}
+/* ---------- หัวเว็บ ---------- */
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--crimson);font-weight:700;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 10px}
 .eyebrow::before{content:'';width:36px;height:2px;background:var(--crimson)}
 .hero{background:var(--paper);background-image:linear-gradient(var(--gridc) 1px,transparent 1px),linear-gradient(90deg,var(--gridc) 1px,transparent 1px);background-size:46px 46px;border-bottom:3px solid var(--ink)}
-.hero__in{padding:66px 0 58px}
+.hero__in{padding:44px 0 38px}
 .hero__text{max-width:760px}
-.hero__title{font-size:clamp(42px,7.4vw,80px);font-weight:700;letter-spacing:-.028em;line-height:1.03}
+.hero__title{font-size:clamp(38px,6.5vw,66px);font-weight:700;letter-spacing:-.025em;line-height:1.05}
 .hero__title em{font-style:normal;color:var(--crimson)}
-.hero__sub{margin:18px 0 16px;font-size:clamp(11px,1.6vw,14px);font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
-.hero__tag{margin:0;font-size:17px;max-width:560px}
-.hero__cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.hero__sub{margin:14px 0 12px;font-size:clamp(11px,1.5vw,13.5px);font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.hero__tag{margin:0;font-size:16px;max-width:560px}
+.hero__cta{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ---------- แถบข้อมูลองค์กร ---------- */
 .orgstrip{background:var(--ink);color:var(--paper);border-bottom:1.5px solid var(--ink)}
 .orgstrip__in{display:grid;grid-template-columns:repeat(4,1fr)}
-.org{padding:15px 22px;border-left:1px solid rgba(245,240,228,.22)}
+.org{padding:10px 20px;border-left:1px solid rgba(243,234,217,.22)}
 .org:first-child{border-left:0}
-.org small{display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#b6ad9e;margin-bottom:1px}
-.org strong{font-size:17.5px;font-weight:600}
+.org small{display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#cbb593;margin-bottom:1px}
+.org strong{font-size:16.5px;font-weight:600}
 
 /* ---------- ประกาศเลื่อน ---------- */
 .ticker{display:flex;align-items:stretch;background:var(--crimson);color:#fff;overflow:hidden}
-.ticker__label{display:flex;gap:8px;align-items:center;background:var(--ink);padding:9px 18px;font-weight:600;font-size:13.5px;white-space:nowrap}
+.ticker__label{display:flex;gap:8px;align-items:center;background:var(--ink);padding:8px 18px;font-weight:600;font-size:13.5px;white-space:nowrap}
 .ticker__label svg{width:15px;height:15px}
 .ticker__viewport{overflow:hidden;flex:1;display:flex;align-items:center}
 .ticker__inner{display:flex;width:max-content;animation:tick 30s linear infinite}
-.ticker__inner span{white-space:nowrap;font-size:14.5px;padding:9px 0}
+.ticker__inner span{white-space:nowrap;font-size:14px;padding:8px 0}
 .ticker__inner span::after{content:'•';margin:0 44px;color:var(--ink)}
 .ticker:hover .ticker__inner{animation-play-state:paused}
 @keyframes tick{to{transform:translateX(-50%)}}
 
 /* ---------- หัวข้อตอน ---------- */
-.section{padding:54px 0 10px}
-.sec-head{display:flex;align-items:flex-end;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:26px;flex-wrap:wrap}
-.sec-no{font-weight:700;color:var(--crimson);font-size:14px;border:1.5px solid var(--crimson);padding:1px 10px;line-height:1.7}
-.sec-head__text h2{font-size:clamp(22px,3.4vw,34px);font-weight:700;letter-spacing:-.02em}
-.sec-head__text p{margin:2px 0 0;color:var(--muted);font-size:14.5px}
+.section{padding:34px 0 8px}
+.sec-head{display:flex;align-items:flex-end;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:11px;margin-bottom:20px;flex-wrap:wrap}
+.sec-no{font-weight:700;color:var(--crimson);font-size:13.5px;border:1.5px solid var(--crimson);padding:1px 10px;line-height:1.7}
+.sec-head__text h2{font-size:clamp(21px,3.2vw,31px);font-weight:700;letter-spacing:-.02em}
+.sec-head__text p{margin:2px 0 0;color:var(--muted);font-size:14px}
 .sec-head__rule{flex:1;border-bottom:1px dotted var(--line-c);margin-bottom:6px}
 
-/* ---------- กริดการ์ด Infographic (จัดกึ่งกลางหน้าเว็บ) ---------- */
-.cards{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;grid-auto-flow:dense;justify-content:center}
-.card{grid-column:span 4;position:relative;display:flex;flex-direction:column;background:var(--card);border:1.5px solid var(--ink);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);transition:transform .18s ease,box-shadow .18s ease,opacity .7s ease}
+/* ---------- การ์ด Infographic (จัดกึ่งกลาง) ---------- */
+.cards{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;grid-auto-flow:dense;justify-content:center}
+.card{grid-column:span 4;position:relative;display:flex;flex-direction:column;background:var(--card);border:1.5px solid var(--ink);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);transition:transform .18s ease,box-shadow .18s ease,opacity .6s ease}
 .card--wide{grid-column:span 8}
 .card--tall{grid-column:span 4}
 .card:hover{transform:translate(-4px,-4px);box-shadow:10px 10px 0 var(--crimson)}
 .card__img{margin:0;overflow:hidden}
-.card__img img{width:100%;display:block;object-fit:cover;aspect-ratio:4/3;transition:transform .4s ease;background:#e9e2d2}
+.card__img img{width:100%;display:block;object-fit:cover;aspect-ratio:4/3;transition:transform .4s ease;background:#e5d7bc}
 .card--tall .card__img img{aspect-ratio:3/4}
 .card--wide .card__img img{aspect-ratio:16/9}
 .card:hover .card__img img{transform:scale(1.045)}
-.card__peek{position:absolute;top:12px;left:12px;background:var(--paper);border:1.5px solid var(--ink);font-size:11.5px;font-weight:700;padding:2px 10px;letter-spacing:.05em;opacity:0;transform:translateY(-6px);transition:.22s ease;z-index:2}
+.card__peek{position:absolute;top:10px;left:10px;background:var(--paper);border:1.5px solid var(--ink);font-size:11.5px;font-weight:700;padding:2px 10px;letter-spacing:.05em;opacity:0;transform:translateY(-6px);transition:.22s ease;z-index:2}
 .card:hover .card__peek{opacity:1;transform:none}
-.card__bar{display:flex;align-items:center;gap:12px;padding:11px 14px;border-top:1.5px solid var(--ink);background:var(--ink);color:var(--paper)}
-.card__no{font-weight:700;font-size:12.5px;background:var(--crimson);padding:1px 8px;letter-spacing:.06em}
+.card__bar{display:flex;align-items:center;gap:12px;padding:9px 12px;border-top:1.5px solid var(--ink);background:var(--ink);color:var(--paper)}
+.card__no{font-weight:700;font-size:12px;background:var(--crimson);padding:1px 8px;letter-spacing:.06em}
 .card__meta{flex:1;min-width:0}
-.card__meta h3{font-size:16.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card__meta p{margin:0;font-size:12.5px;opacity:.72;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card__go{display:grid;place-items:center;width:30px;height:30px;border:1px solid rgba(245,240,228,.4);border-radius:50%;flex:0 0 auto;transition:.18s}
+.card__meta h3{font-size:15.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card__meta p{margin:0;font-size:12px;opacity:.72;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card__go{display:grid;place-items:center;width:28px;height:28px;border:1px solid rgba(243,234,217,.4);border-radius:50%;flex:0 0 auto;transition:.18s}
 .card__go svg{width:14px;height:14px}
 .card:hover .card__go{background:var(--crimson);border-color:var(--crimson)}
-.sk{grid-column:span 4;aspect-ratio:4/4.6;border:1.5px solid transparent;background:#e9e2d2;animation:pulse 1.1s ease-in-out infinite alternate}
+.sk{grid-column:span 4;aspect-ratio:4/4.4;border:1.5px solid transparent;background:#e5d7bc;animation:pulse 1.1s ease-in-out infinite alternate}
 @keyframes pulse{to{opacity:.45}}
-.empty{grid-column:1/-1;border:2px dashed #b9ae97;padding:38px;text-align:center;color:var(--muted)}
+.empty{grid-column:1/-1;border:2px dashed #c4ae8c;padding:30px;text-align:center;color:var(--muted)}
 .empty h3{margin-bottom:6px;color:var(--ink)}
 .empty a{color:var(--crimson)}
 
 /* ---------- รู้จักสาขา + พันธกิจ ---------- */
-.about{display:grid;grid-template-columns:1fr 1.7fr;gap:44px;padding:56px 0 26px;border-top:1px solid var(--line-c);margin-top:52px}
-.about__left h2{font-size:clamp(21px,3vw,30px);margin-top:12px;letter-spacing:-.02em}
-.about__text p{margin:0 0 12px;max-width:660px;font-size:16px}
-.missions{list-style:none;margin:26px 0 0;padding:0}
-.missions li{display:flex;gap:16px;padding:16px 0 15px;border-top:1px solid var(--line-c)}
-.missions li span{font-weight:700;color:var(--crimson);font-size:13px;border:1.5px solid var(--crimson);padding:1px 9px;height:fit-content;flex:0 0 auto}
-.missions strong{font-size:16.5px}
-.missions p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.about{display:grid;grid-template-columns:1fr 1.7fr;gap:32px;padding:34px 0 18px;border-top:1px solid var(--line-c);margin-top:36px}
+.about__left h2{font-size:clamp(20px,2.8vw,28px);margin-top:10px;letter-spacing:-.02em}
+.about__text p{margin:0 0 10px;max-width:660px;font-size:15.5px}
+.missions{list-style:none;margin:18px 0 0;padding:0}
+.missions li{display:flex;gap:14px;padding:12px 0 11px;border-top:1px solid var(--line-c)}
+.missions li span{font-weight:700;color:var(--crimson);font-size:12.5px;border:1.5px solid var(--crimson);padding:1px 9px;height:fit-content;flex:0 0 auto}
+.missions strong{font-size:15.5px}
+.missions p{margin:2px 0 0;color:var(--muted);font-size:13.5px}
 
 /* ---------- ปุ่ม ---------- */
-.btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:14.5px;font-weight:600;padding:10px 18px;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;transition:.15s;line-height:1.35}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:14.5px;font-weight:600;padding:9px 16px;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;transition:.15s;line-height:1.35}
 .btn svg{width:15px;height:15px}
 .btn:hover{box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px)}
 .btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}
@@ -148,55 +146,50 @@
 .btn--block{width:100%;justify-content:center}
 
 /* ---------- ท้ายเว็บ ---------- */
-.footer{margin-top:60px;background:var(--ink);color:var(--paper);border-top:4px solid var(--crimson)}
-.footer__in{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px;padding:40px 0 26px}
-.footer__col{display:flex;flex-direction:column;gap:6px;font-size:14.5px}
-.footer__col h4{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#b6ad9e;margin-bottom:6px}
+.footer{margin-top:40px;background:var(--ink);color:var(--paper);border-top:4px solid var(--crimson)}
+.footer__in{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:28px;padding:28px 0 18px}
+.footer__col{display:flex;flex-direction:column;gap:5px;font-size:14px}
+.footer__col h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#cbb593;margin-bottom:5px}
 .footer__col p{margin:0}
 .footer__col a{text-decoration:none;color:var(--paper)}
 .footer__col a:hover{text-decoration:underline;color:#fff}
-.footer__muted{color:#b6ad9e!important;font-size:13px}
-.footer__addr{color:#b6ad9e;font-size:13.5px;margin-top:8px;max-width:300px}
+.footer__muted{color:#cbb593!important;font-size:12.5px}
+.footer__addr{color:#cbb593;font-size:13px;margin-top:6px;max-width:300px}
 .brand--foot{align-items:flex-start;margin-bottom:4px}
 .brand--foot .brand__mark{background:var(--crimson)}
-.brand--foot strong{display:block;font-size:16px}
-.brand--foot span{font-size:12.5px;color:#b6ad9e}
-.footer__base{border-top:1px solid rgba(245,240,228,.18);padding:13px 0;font-size:12.5px;color:#b6ad9e}
+.brand--foot strong{display:block;font-size:15.5px}
+.brand--foot span{font-size:12.5px;color:#cbb593}
+.footer__base{border-top:1px solid rgba(243,234,217,.18);padding:10px 0;font-size:12px;color:#cbb593}
 
-/* ---------- ปุ่มขึ้นด้านบน / แถบโหมดตัวอย่าง ---------- */
-.totop{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:4px 4px 0 var(--ink);z-index:80;padding:0;transition:.18s}
-.totop svg{width:18px;height:18px}
+/* ---------- ปุ่มขึ้นบน / แถบโหมดตัวอย่าง ---------- */
+.totop{position:fixed;right:20px;bottom:20px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:4px 4px 0 var(--ink);z-index:80;padding:0;transition:.18s}
+.totop svg{width:17px;height:17px}
 .totop:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--crimson)}
 .mockbar{position:fixed;left:0;right:0;bottom:0;background:var(--crimson);color:#fff;text-align:center;font-size:12.5px;padding:6px 12px;z-index:95}
 
 /* =====================================================
-   โหมดผู้ดูแล (แสดงแบบเต็มจอเมื่อ URL = #admin)
+   โหมดผู้ดูแล
    ===================================================== */
 #adminRoot{position:fixed;inset:0;z-index:150;background:var(--paper);overflow:auto}
 body.admin-open{overflow:hidden}
-
 .auth{min-height:100vh;display:grid;place-items:center;padding:20px}
 .auth__panel{width:min(430px,100%);background:var(--card);border:1.5px solid var(--ink);box-shadow:var(--shadow);padding:32px 30px}
 .auth__panel h1{font-size:24px;margin:22px 0 4px}
 .auth__lead{margin:0 0 20px;color:var(--muted);font-size:14px}
-.auth__demo{margin:16px 0 0;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line-c);padding-top:12px}
-.auth__demo code{background:#eee7d6;padding:1px 6px}
 .auth__back{display:inline-block;margin-top:16px;font-size:13.5px;color:var(--muted);text-decoration:none}
 .auth__back:hover{color:var(--ink)}
-
 .brand{display:flex;gap:11px;align-items:center}
 .brand__mark{display:grid;place-items:center;width:40px;height:40px;background:var(--crimson);color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.04em;flex:0 0 auto}
 .brand strong{display:block;font-size:15.5px;line-height:1.25}
 .brand span{font-size:12px;color:var(--muted)}
-
 .shell{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
 .side{border-right:1.5px solid var(--ink);background:var(--card);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
 .side__brand{padding:18px 16px;border-bottom:1.5px solid var(--ink)}
 .side__nav{padding:10px 0;display:flex;flex-direction:column}
 .side__nav a{display:flex;align-items:center;gap:11px;padding:11px 16px;font-weight:500;font-size:14.5px;text-decoration:none;border-left:3px solid transparent;color:var(--ink)}
 .side__nav a svg{width:17px;height:17px;color:var(--muted)}
-.side__nav a:hover{background:#f0e9d9}
-.side__nav a.on{border-left-color:var(--crimson);background:#f0e9d9;font-weight:600}
+.side__nav a:hover{background:#ece0c6}
+.side__nav a.on{border-left-color:var(--crimson);background:#ece0c6;font-weight:600}
 .side__nav a.on svg{color:var(--crimson)}
 .side__user{margin-top:auto;padding:14px 16px;border-top:1.5px solid var(--ink);display:flex;flex-direction:column;gap:2px}
 .side__user strong{font-size:14px}
@@ -206,29 +199,25 @@ body.admin-open{overflow:hidden}
 .topbar2{display:flex;justify-content:space-between;align-items:center;padding:15px 26px;border-bottom:1.5px solid var(--ink);background:var(--card)}
 .topbar2 h2{font-size:19px}
 .view{padding:26px}
-
 .loading{display:flex;gap:9px;align-items:center;color:var(--muted);padding:26px 4px}
 .loading svg{width:16px;height:16px;animation:spin 1.2s linear infinite}
 .hint{color:var(--muted);font-size:13.5px;margin:0 0 16px}
-
 .statrow{display:flex;border:1.5px solid var(--ink);background:var(--card);box-shadow:var(--shadow)}
 .stat{flex:1;padding:20px 24px;border-right:1.5px solid var(--ink)}
 .stat:last-child{border-right:0}
 .stat__n{display:block;font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--crimson);line-height:1.15}
 .stat__l{color:var(--muted);font-size:13px}
-
 .panel{background:var(--card);border:1.5px solid var(--ink);padding:20px 22px;margin-top:22px}
 .panel h3{font-size:16px;margin-bottom:10px}
 .tbl{width:100%;border-collapse:collapse;font-size:13.5px}
 .tbl th{text-align:left;border-bottom:2px solid var(--ink);padding:7px 10px;white-space:nowrap}
 .tbl td{border-bottom:1px solid var(--line-c);padding:7px 10px;vertical-align:top}
 .tbl td:first-child{white-space:nowrap;color:var(--muted)}
-
 .viewhead{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
 .viewhead p{margin:0;color:var(--muted);font-size:14px}
 .rows{display:flex;flex-direction:column;gap:12px}
 .row{display:grid;grid-template-columns:86px 1fr auto auto;gap:16px;align-items:center;background:var(--card);border:1.5px solid var(--ink);padding:10px 14px}
-.row__thumb{width:86px;height:60px;object-fit:cover;border:1px solid var(--line-c);background:#e9e2d2}
+.row__thumb{width:86px;height:60px;object-fit:cover;border:1px solid var(--line-c);background:#e5d7bc}
 .row__info{min-width:0}
 .row__info strong{display:block;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .row__mail{font-weight:400;color:var(--muted);font-size:13px}
@@ -240,50 +229,43 @@ body.admin-open{overflow:hidden}
 .row__ro,.row__me{font-size:12px;color:var(--muted);align-self:center}
 .row__me{color:var(--crimson);font-weight:600}
 .row--user{grid-template-columns:1fr auto auto}
-
 .badge{font-size:11px;font-weight:700;padding:2px 9px;border:1px solid var(--ink);letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
 .badge--on{background:var(--ink);color:var(--paper)}
-.badge--off{background:#e5dcc8;color:var(--muted);border-color:var(--muted)}
+.badge--off{background:#e5d7bc;color:var(--muted);border-color:var(--muted)}
 .badge--admin{background:var(--crimson);border-color:var(--crimson);color:#fff}
 .badge--editor{background:var(--card)}
-.badge--viewer{background:#e5dcc8;border-color:var(--muted);color:var(--muted)}
-
+.badge--viewer{background:#e5d7bc;border-color:var(--muted);color:var(--muted)}
 label{display:block;font-size:13.5px;font-weight:600;margin-bottom:13px}
 input,select,textarea{width:100%;font-family:inherit;font-size:14.5px;padding:9px 12px;border:1.5px solid var(--ink);background:#fff;margin-top:5px}
 input:focus,select:focus,textarea:focus{outline:none;box-shadow:3px 3px 0 var(--crimson)}
-input.ro,select:disabled,textarea:disabled,input:disabled{background:#eee7d6;color:var(--muted);cursor:not-allowed}
+input.ro,select:disabled,textarea:disabled,input:disabled{background:#e5d7bc;color:var(--muted);cursor:not-allowed}
 textarea{resize:vertical}
 .fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
 .chk{display:flex;gap:9px;align-items:center;margin-top:28px}
 .chk input{width:auto;margin:0}
 .form-err{color:var(--bad);font-size:13.5px;font-weight:600;margin:0 0 12px}
-
-/* ชุดเลือก/อัปโหลดภาพ */
 .field{margin-bottom:13px}
 .field__label{display:block;font-size:13.5px;font-weight:600;margin-bottom:6px}
 .picker__drop{display:flex;gap:12px;align-items:center;padding:16px 14px;border:2px dashed var(--ink);background:#fff;cursor:pointer;transition:.15s}
-.picker__drop:hover,.picker__drop:focus-visible{background:#f6f1e7;outline:none}
-.picker__drop.is-over{border-color:var(--crimson);border-style:solid;background:#f7edee}
+.picker__drop:hover,.picker__drop:focus-visible{background:#f3ead9;outline:none}
+.picker__drop.is-over{border-color:var(--crimson);border-style:solid;background:#f2e2d6}
 .picker__drop.is-busy{opacity:.6;cursor:progress}
 .picker__drop svg{width:22px;height:22px;color:var(--crimson);flex:0 0 auto}
 .picker__drop span{font-size:12.5px;color:var(--muted);line-height:1.55}
 .picker__drop span strong{color:var(--ink)}
-.picker__prev{position:relative;margin-top:10px;border:1.5px solid var(--ink);background:#e9e2d2;width:fit-content;max-width:100%}
+.picker__prev{position:relative;margin-top:10px;border:1.5px solid var(--ink);background:#e5d7bc;width:fit-content;max-width:100%}
 .picker__img{display:block;max-width:100%;max-height:240px;width:auto;height:auto}
 .picker__cap{display:block;font-size:11px;color:var(--muted);padding:4px 9px;background:var(--card);border-top:1px solid var(--line-c)}
 .picker__del{position:absolute;top:8px;right:8px;width:30px;height:30px;display:grid;place-items:center;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;padding:0}
 .picker__del svg{width:14px;height:14px}
 .picker__del:hover{background:var(--bad);border-color:var(--bad);color:#fff}
-
-/* โมดัล — แสดงเฉพาะเมื่อระบบเรียกใช้เท่านั้น */
-.modalback{position:fixed;inset:0;background:rgba(28,22,16,.55);display:grid;place-items:center;z-index:200;padding:18px}
+.modalback{position:fixed;inset:0;background:rgba(40,26,16,.55);display:grid;place-items:center;z-index:200;padding:18px}
 .modal{width:min(640px,100%);max-height:90vh;overflow:auto;background:var(--paper);border:1.5px solid var(--ink);box-shadow:10px 10px 0 var(--ink);padding:26px}
 .modal__h{font-size:19px;margin-bottom:18px}
 .modal__p{color:var(--muted);font-size:14.5px}
 .modal__act{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
-
 .toasts{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:220}
-.toast{display:flex;gap:10px;align-items:center;background:var(--ink);color:var(--paper);padding:11px 16px;border-left:4px solid var(--crimson);font-size:14px;box-shadow:5px 5px 0 rgba(28,22,16,.25);animation:slidein .25s ease}
+.toast{display:flex;gap:10px;align-items:center;background:var(--ink);color:var(--paper);padding:11px 16px;border-left:4px solid var(--crimson);font-size:14px;box-shadow:5px 5px 0 rgba(40,26,16,.25);animation:slidein .25s ease}
 .toast svg{width:16px;height:16px;flex:0 0 auto}
 .toast--ok{border-left-color:var(--ok)}
 .toast--bad{border-left-color:var(--bad)}
@@ -306,17 +288,17 @@ textarea{resize:vertical}
 }
 @media (max-width:720px){
   .cards>*{grid-column:span 12}
-  .hero__in{padding:44px 0 40px}
+  .hero__in{padding:32px 0 28px}
   .nav__logo,.nav__mark-fb{width:40px;height:40px}
   .orgstrip__in{grid-template-columns:1fr 1fr}
-  .org{border-left:0;border-top:1px solid rgba(245,240,228,.22);padding:12px 18px}
+  .org{border-left:0;border-top:1px solid rgba(243,234,217,.22);padding:10px 16px}
   .org:nth-child(-n+2){border-top:0}
-  .footer__in{grid-template-columns:1fr 1fr;gap:24px;padding:32px 0 22px}
+  .footer__in{grid-template-columns:1fr 1fr;gap:22px;padding:24px 0 16px}
   .fieldgrid{grid-template-columns:1fr}
   .statrow{flex-wrap:wrap}
   .stat{flex:1 1 45%;border-right:0;border-bottom:1.5px solid var(--ink)}
   .row{grid-template-columns:1fr}
-  .row__thumb{width:100%;height:120px}
+  .row__thumb{width:100%;height:110px}
   .row__tags,.row__act{justify-content:flex-start}
   .view{padding:18px 14px}
   .topbar2{padding:13px 14px}
@@ -334,11 +316,11 @@ textarea{resize:vertical}
 
 <div class="progress" id="progress"></div>
 
-<!-- ═══════════ ส่วนเว็บสาธารณะ (หน้าแรก) ═══════════ -->
+<!-- ═══════════ ส่วนเว็บสาธารณะ ═══════════ -->
 <header class="nav" id="nav">
   <div class="wrap nav__in">
     <a class="nav__brand" href="#top" id="sealBtn" title="ตราประจำสาขา — คลิกเพื่อกลับขึ้นด้านบน">
-      <!-- ▼▼ วาง URL รูปตรา/โลโก้ของสาขาที่นี่ (.jpg .png .svg .webp ได้หมด) ▼▼ -->
+      <!-- URL รูปตรา/โลโก้ (เปลี่ยนได้ที่ src นี้) -->
       <img class="nav__logo" id="navLogo" src="https://avatars.githubusercontent.com/u/323421596?s=96&v=4" alt="ตราประจำสาขาวิชา">
       <span class="nav__name">
         <strong>เทคโนโลยีและสื่อสารการศึกษา</strong>
@@ -371,7 +353,6 @@ textarea{resize:vertical}
       <p class="hero__tag rv" style="transition-delay:.2s" id="mTag">
         ผลิตครูและนักออกแบบการเรียนรู้ สำหรับโลกยุคดิจิทัล
       </p>
-      <!-- ปุ่มนำทางใต้คำโปรย (ถ้าไม่ต้องการ ลบบล็อก div นี้ทั้งก้อนได้เลย) -->
       <div class="hero__cta rv" style="transition-delay:.26s">
         <a class="btn btn--primary" href="#infographics">สำรวจสารสนเทศ <i data-lucide="arrow-down"></i></a>
         <a class="btn" href="#contact">ติดต่อสาขา <i data-lucide="phone"></i></a>
@@ -380,7 +361,6 @@ textarea{resize:vertical}
   </div>
 </header>
 
-<!-- แถบข้อมูลองค์กร (แก้ข้อความได้จากที่นี่) -->
 <div class="orgstrip">
   <div class="wrap orgstrip__in">
     <div class="org"><small>คณะ</small><strong>ศึกษาศาสตร์</strong></div>
@@ -401,7 +381,7 @@ textarea{resize:vertical}
       <span class="sec-no">01</span>
       <div class="sec-head__text">
         <h2>ประตูสารสนเทศ</h2>
-        <p>แตะภาพ Infographic เพื่อเข้าสู่หน้าข้อมูลที่กำหนดไว้</p>
+        <p>แตะภาพเพื่อเข้าสู่หน้าข้อมูลที่กำหนดไว้</p>
       </div>
       <span class="sec-head__rule"></span>
     </header>
@@ -420,7 +400,6 @@ textarea{resize:vertical}
         <p>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา มุ่งผลิตครูและบุคลากรทางการศึกษา
         ที่ออกแบบการเรียนรู้ด้วยสื่อและเทคโนโลยีอย่างสร้างสรรค์</p>
       </div>
-      <!-- พันธกิจหลัก 3 ข้อ (แก้ข้อความได้จากที่นี่) -->
       <ul class="missions">
         <li class="rv"><span>01</span>
           <div><strong>ผลิตครูยุคใหม่</strong>
@@ -476,7 +455,7 @@ textarea{resize:vertical}
 
 <button class="totop" id="totop" hidden aria-label="กลับขึ้นด้านบน"><i data-lucide="arrow-up"></i></button>
 
-<!-- ═══════════ โหมดผู้ดูแล (เปิดผ่านปุ่มผู้ดูแล หรือ URL#admin) ═══════════ -->
+<!-- ═══════════ โหมดผู้ดูแล ═══════════ -->
 <div id="adminRoot" hidden>
   <div class="auth" id="aAuth">
     <div class="auth__panel">
@@ -497,9 +476,6 @@ textarea{resize:vertical}
           เข้าสู่ระบบ <i data-lucide="log-in"></i>
         </button>
       </form>
-      <p class="auth__demo" id="aAuthDemo" hidden>
-        โหมดตัวอย่าง — ลอง: <code>admin@msu.ac.th</code> / <code>etc1234</code>
-      </p>
       <a href="#top" class="auth__back">← กลับหน้าเว็บไซต์</a>
     </div>
   </div>
@@ -530,7 +506,6 @@ textarea{resize:vertical}
   </div>
 </div>
 
-<!-- องค์ประกอบใช้ร่วมทั้งสองโหมด -->
 <div class="modalback" id="modalBack" hidden><div class="modal" id="modalBox"></div></div>
 <div class="toasts" id="toasts"></div>
 <div class="mockbar" id="mockbar" hidden>โหมดตัวอย่าง (ข้อมูลจำลอง) — ยังไม่ได้เชื่อมต่อ Google Sheet</div>
@@ -538,12 +513,9 @@ textarea{resize:vertical}
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
 /* =====================================================
-   ▼▼ ตั้งค่าการเชื่อมต่อระบบ (แก้บรรทัดนี้!)
-   ใส่ URL ของ Web App จาก Apps Script เช่น
-   'https://script.google.com/macros/s/AKfy.../exec'
-   ถ้ายังไม่ใส่ ระบบจะทำงานใน "โหมดตัวอย่าง" (Mock data)
+   การเชื่อมต่อ API — Web App ของ Apps Script (ใส่แล้ว)
    ===================================================== */
-const API_URL = 'https://script.google.com/macros/library/d/1QWeB3uTTTr8pngQLqT2rq84FldP3PhUoIZBXa0sRvEWz5xI_zw87vcEK/7';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzbA1Ik1pT86zz_4QSNg4o8RKk5zKv1n9xghVVe0XndJ0x9c11tAa3eOnrdHU08nloFgw/exec';
 
 const $ = (s, p = document) => p.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g,
@@ -561,7 +533,9 @@ async function apiCall(action, data = {}, token = null) {
   });
   let out;
   try { out = await res.json(); }
-  catch (e) { throw new Error('เชื่อมต่อเซิร์ฟเวอร์ไม่สำเร็จ — ตรวจ URL ในสคริปต์และสิทธิ์ Web App (ต้องเป็น Anyone)'); }
+  catch (e) {
+    throw new Error('เชื่อมต่อ API ไม่สำเร็จ — ตรวจว่า Deploy ตั้งเป็น Anyone และ Code.gs รัน setup() แล้ว');
+  }
   if (!out.ok) {
     const err = new Error(out.error || 'เกิดข้อผิดพลาด');
     err.code = out.code || '';
@@ -575,28 +549,11 @@ const MOCK = {
   settings: {
     siteTitle: 'สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา',
     tagline: 'ผลิตครูและนักออกแบบการเรียนรู้ สำหรับโลกยุคดิจิทัล',
-    announcement: 'เปิดรับสมัครเรียนรอบ Admission — สอบถามเพิ่มเติมที่กองวิชาการ คณะศึกษาศาสตร์',
-    about: '<p>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม มุ่งผลิตครูและบุคลากรทางการศึกษาที่ออกแบบ พัฒนา และนำสื่อกับเทคโนโลยีมาใช้เพื่อการเรียนรู้อย่างสร้างสรรค์</p>',
-    phone: '0 4375 4xxx',
-    email: 'etc@edu.msu.ac.th',
+    announcement: '',
+    about: '<p>สาขาวิชาเทคโนโลยีและสื่อสารการศึกษา มุ่งผลิตครูและบุคลากรทางการศึกษาที่ออกแบบการเรียนรู้ด้วยสื่อและเทคโนโลยีอย่างสร้างสรรค์</p>',
+    phone: '', email: '',
   },
-  cards: [
-    { id: '1', title: 'หลักสูตรที่เปิดสอน', subtitle: 'ปริญญาตรี – ปริญญาเอก', imageUrl: 'https://picsum.photos/seed/etc-curric/1600/900', linkUrl: 'https://www.msu.ac.th', size: 'wide', active: true },
-    { id: '2', title: 'บุคลากรประจำสาขา', subtitle: 'อาจารย์และนักวิชาการ', imageUrl: 'https://picsum.photos/seed/etc-staff/800/1000', linkUrl: 'https://www.msu.ac.th', size: 'normal', active: true },
-    { id: '3', title: 'ข่าวและประกาศ', subtitle: 'รับสมัคร ทุน กิจกรรม', imageUrl: 'https://picsum.photos/seed/etc-news/800/1000', linkUrl: 'https://www.msu.ac.th', size: 'normal', active: true },
-    { id: '4', title: 'วิจัยและบริการวิชาการ', subtitle: 'ผลงานวิชาการของสาขา', imageUrl: 'https://picsum.photos/seed/etc-research/800/1050', linkUrl: 'https://www.msu.ac.th', size: 'tall', active: true },
-    { id: '5', title: 'สื่อการเรียน E-Learning', subtitle: 'คลังสื่อดิจิทัล', imageUrl: 'https://picsum.photos/seed/etc-media/800/1000', linkUrl: 'https://www.msu.ac.th', size: 'normal', active: true },
-    { id: '6', title: 'ติดต่อสาขาวิชา', subtitle: 'อีเมลและโทรศัพท์', imageUrl: 'https://picsum.photos/seed/etc-contact/1600/900', linkUrl: 'https://www.msu.ac.th', size: 'wide', active: false },
-  ],
-  users: [
-    { id: 'u1', email: 'admin@msu.ac.th', name: 'ผู้ดูแลระบบ', role: 'ADMIN', status: 'ACTIVE', lastLogin: '', createdAt: '' },
-    { id: 'u2', email: 'editor@msu.ac.th', name: 'อาจารย์สมศรี ใจดี', role: 'EDITOR', status: 'ACTIVE', lastLogin: '', createdAt: '' },
-    { id: 'u3', email: 'viewer@msu.ac.th', name: 'นักศึกษา กช. ตัวอย่าง', role: 'VIEWER', status: 'ACTIVE', lastLogin: '', createdAt: '' },
-  ],
-  logs: [
-    { time: '2025-01-15T09:24:00', email: 'admin@msu.ac.th', action: 'LOGIN', detail: 'เข้าสู่ระบบสำเร็จ' },
-    { time: '2025-01-15T09:20:00', email: 'admin@msu.ac.th', action: 'EDIT_CARD', detail: 'หลักสูตรที่เปิดสอน' },
-  ],
+  cards: [], users: [], logs: [],
 };
 let M = JSON.parse(JSON.stringify(MOCK));
 
@@ -609,68 +566,16 @@ function mockApi(action, data, token) {
   });
 }
 function mockRoute(action, d, token) {
-  if (action === 'site')
-    return { ok: true, settings: M.settings, cards: M.cards.filter(c => c.active !== false) };
-  if (action === 'login') {
-    const u = M.users.find(u => u.email === String(d.email || '').trim().toLowerCase());
-    if (!u || d.password !== 'etc1234')
-      throw new Error('อีเมลหรือรหัสผ่านไม่ถูกต้อง (โหมดตัวอย่าง ใช้รหัส etc1234)');
-    if (u.status !== 'ACTIVE') throw new Error('บัญชีนี้ถูกระงับการใช้งาน');
-    return { ok: true, token: 'MOCK', user: u };
-  }
+  if (action === 'site') return { ok: true, settings: M.settings, cards: M.cards };
   if (token !== 'MOCK') { const e = new Error('SESSION_EXPIRED'); e.code = 'SESSION_EXPIRED'; throw e; }
   switch (action) {
-    case 'me':          return { ok: true, user: M.users[0] };
-    case 'logout':      return { ok: true };
-    case 'stats':       return { ok: true, cards: M.cards.length,
-                                 active: M.cards.filter(c => c.active !== false).length,
-                                 users: M.users.length, logs: M.logs };
-    case 'listCards':   return { ok: true, cards: M.cards };
-    case 'getSettings': return { ok: true, settings: M.settings };
-    case 'listUsers':   return { ok: true, users: M.users };
-    case 'saveCard': {
-      if (!d.title) throw new Error('กรุณากรอกชื่อการ์ด');
-      const c = M.cards.find(c => String(c.id) === String(d.id));
-      if (c) Object.assign(c, d);
-      else M.cards.push({ id: String(Date.now()), order: M.cards.length + 1, ...d });
-      return { ok: true };
-    }
-    case 'deleteCard':
-      M.cards = M.cards.filter(c => String(c.id) !== String(d.id)); return { ok: true };
-    case 'toggleCard': {
-      const c = M.cards.find(c => String(c.id) === String(d.id));
-      if (c) c.active = d.active !== false; return { ok: true };
-    }
-    case 'moveCard': {
-      const i = M.cards.findIndex(c => String(c.id) === String(d.id));
-      const j = d.dir === 'up' ? i - 1 : i + 1;
-      if (i >= 0 && j >= 0 && j < M.cards.length) {
-        const t = M.cards[i]; M.cards[i] = M.cards[j]; M.cards[j] = t;
-      }
-      return { ok: true };
-    }
-    case 'uploadImage':
-      return { ok: true, url: 'https://picsum.photos/seed/preview' + Date.now() + '/900/640' };
-    case 'saveUser': {
-      if (d.id) {
-        const u = M.users.find(u => String(u.id) === String(d.id));
-        if (u) Object.assign(u, { name: d.name, role: d.role, status: d.status });
-      } else {
-        M.users.push({ id: String(Date.now()), email: d.email, name: d.name,
-                       role: d.role, status: d.status, lastLogin: '', createdAt: '' });
-      }
-      return { ok: true };
-    }
-    case 'deleteUser':
-      M.users = M.users.filter(u => String(u.id) !== String(d.id)); return { ok: true };
-    case 'saveSettings':
-      Object.assign(M.settings, d); return { ok: true };
+    case 'logout': return { ok: true };
   }
   throw new Error('คำสั่งไม่ถูกต้อง: ' + action);
 }
 
 /* =====================================================
-   ส่วนเว็บสาธารณะ (หน้าแรก)
+   ส่วนเว็บสาธารณะ
    ===================================================== */
 const el = {
   cards: $('#cards'), ticker: $('#ticker'), tInner: $('#tickerInner'),
@@ -689,7 +594,6 @@ async function loadPublic() {
       <div class="empty">
         <h3>โหลดข้อมูลไม่สำเร็จ</h3>
         <p>${esc(err.message)}</p>
-        <p>ตรวจ URL ของ Web App ในสคริปต์ และสิทธิ์การเข้าถึง (ต้องตั้งเป็น Anyone)</p>
       </div>`;
     lucide.createIcons();
   }
@@ -753,37 +657,34 @@ function watchReveals() {
   document.querySelectorAll('.rv:not(.in)').forEach(x => io.observe(x));
 }
 
-/* ---------- ตราสาขา (รูปจาก URL): โยกไหวแบบป้ายแขวน + คลิกกลับขึ้นบนสุด ---------- */
+/* ---------- ตราสาขา (รูปจาก URL): โยกแบบป้ายแขวน + คลิกกลับบนสุด ---------- */
 function sealInit() {
   const btn = $('#sealBtn');
   const logo = $('#navLogo');
   if (!btn || !logo) return;
-
   let node = logo;
-  logo.addEventListener('error', () => {        // URL โหลดไม่ได้ → กล่อง ETC แทน
+  logo.addEventListener('error', () => {
     const fb = document.createElement('span');
     fb.className = 'nav__mark-fb';
     fb.textContent = 'ETC';
     node = fb;
     logo.replaceWith(fb);
   });
-
   let phase = 0, gust = 0, hover = false, lastY = scrollY, lastT = performance.now();
   btn.addEventListener('mouseenter', () => hover = true);
   btn.addEventListener('mouseleave', () => hover = false);
   btn.addEventListener('click', e => {
     e.preventDefault();
-    gust += 9;                                  // แกว่งพุ่งหนึ่งจังหวะ
-    scrollTo({ top: 0, behavior: 'smooth' });   // แล้วกลับขึ้นบนสุด
+    gust += 9;
+    scrollTo({ top: 0, behavior: 'smooth' });
   });
-
   (function loop(t) {
     const dt = Math.min(0.05, (t - lastT) / 1000);
     lastT = t;
     const dy = Math.abs(scrollY - lastY);
     lastY = scrollY;
-    gust = Math.min(9, gust + dy * 0.02);   // เลื่อนหน้า = ลมพัดเพิ่ม
-    gust *= Math.exp(-1.6 * dt);            // ค่อย ๆ สงบ
+    gust = Math.min(9, gust + dy * 0.02);
+    gust *= Math.exp(-1.6 * dt);
     phase += dt * (hover ? 5 : 2);
     const amp = (hover ? 3 : 1.6) + gust;
     node.style.transform = 'rotate(' + (Math.sin(phase) * amp).toFixed(2) + 'deg)';
@@ -791,7 +692,7 @@ function sealInit() {
   })(lastT);
 }
 
-/* อินเทอร์แอกชันหน้าเว็บ: เมนูมือถือ / scroll / ปุ่มขึ้นบน */
+/* อินเทอร์แอกชันหน้าเว็บ */
 function interactions() {
   const burger = $('#navBurger'), menu = $('#navMenu');
   burger.addEventListener('click', () => {
@@ -819,7 +720,7 @@ function setBurger(b, open) {
 }
 
 /* =====================================================
-   โหมดผู้ดูแล (ภายในหน้าเดียว — เปิดผ่าน #admin)
+   โหมดผู้ดูแล
    ===================================================== */
 const RANK = { VIEWER: 1, EDITOR: 2, ADMIN: 3 };
 const LS_KEY = 'etc_token';
@@ -842,7 +743,6 @@ const SETTING_FIELDS = [
   ['email',        'อีเมลติดต่อ'],
 ];
 
-/* สลับโหมด สาธารณะ ↔ ผู้ดูแล ตาม hash */
 function onHash() {
   const admin = location.hash === '#admin';
   if (admin === adminOpen) return;
@@ -879,7 +779,6 @@ async function adminBoot() {
 function showLogin() {
   $('#aAuth').hidden = false;
   $('#aApp').hidden = true;
-  if (isMockMode()) $('#aAuthDemo').hidden = false;
 }
 
 async function onLogin(e) {
@@ -1072,7 +971,7 @@ function openCardModal(c) {
   lucide.createIcons();
 }
 
-/* ชุดเลือก/อัปโหลดภาพ: คลิกเลือกไฟล์ + ลากวาง + ตัวอย่างทันที */
+/* ชุดเลือก/อัปโหลดภาพ */
 function bindPicker() {
   const drop = $('#pickerDrop');
   const file = $('#uplFile');
@@ -1346,9 +1245,7 @@ function bindAdminGlobal() {
   });
 }
 
-/* =====================================================
-   เริ่มการทำงาน
-   ===================================================== */
+/* เริ่มการทำงาน */
 (function boot() {
   $('#year').textContent = new Date().getFullYear();
   lucide.createIcons();
